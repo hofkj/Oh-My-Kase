@@ -1,0 +1,33 @@
+.bottombar_container {
+    width: 375px;
+    height: 89px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    position: fixed;
+    /* bottom: 0; */
+    background: #FFF;
+    z-index: 1000;
+}
+
+.bookmark {
+    width: 25px;
+    height: 32px;
+}
+
+.reservation_button {
+    width: 286px;
+    height: 42px;
+    border-radius: 11px;
+    border: none;
+    background: var(--MAIN-01, #BB0038);
+
+    color: #FFF;
+    text-align: center;
+    font-family: Pretendard;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 22px;
+}
