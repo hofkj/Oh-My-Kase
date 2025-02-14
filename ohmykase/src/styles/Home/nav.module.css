@@ -1,0 +1,38 @@
+.nav_container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: fixed; 
+    bottom: 0;
+    /* width: 100%; */
+    width: 375px;
+    height: 89px;
+    z-index: 1000;
+}
+
+.nav_item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.home {
+    width: 22px;
+    height: auto;
+}
+.map {
+    width: 19px;
+    height: auto;
+}
+.review {
+    width: 24px;
+    height: auto;
+}
+.reservation {
+    width: 20px;
+    height: auto;
+}
+.profile {
+    width: 24px;
+    height: auto;
+}
