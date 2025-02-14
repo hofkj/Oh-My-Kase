@@ -1,10 +1,14 @@
 import React from "react";
 import Nav from '../components/Home/nav';
+import Restaurant from "../components/Home/restaurant";
 
 function HomePage() {
     return (
-        <Nav/>
-    )
+        <div>
+            <Restaurant />
+            <Nav />
+        </div>
+    );
 }
 
 export default HomePage;
