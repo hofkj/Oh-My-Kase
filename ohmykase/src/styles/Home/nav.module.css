@@ -8,6 +8,8 @@
     width: 375px;
     height: 89px;
     z-index: 1000;
+    border-top: 0.4px solid #AEAEAE;
+    background: #FFF;
 }
 
 .nav_item {
