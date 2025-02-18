@@ -1,5 +1,5 @@
 import React from "react";
-import styles from '../../styles/Home/restaurant.module.css';
+import styles from '../../styles/home/restaurant.module.css';
 
 function Restaurant() {
     return (
