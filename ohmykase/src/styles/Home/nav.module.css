@@ -19,22 +19,101 @@
 }
 
 .home {
-    width: 22px;
-    height: auto;
+    color: var(--MAIN-01, #BB0038);
+    text-align: center;
+    font-family: Pretendard;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 5px;
 }
+
+.home img {
+    width: 17px;
+    height: 18px;
+}
+
 .map {
-    width: 19px;
-    height: auto;
+    color: var(--BLACK-03, #747474);
+    text-align: center;
+    font-family: Pretendard;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 4px;
 }
+
+.map img {
+    width: 15px;
+    height: 20px;
+}
+
 .review {
-    width: 24px;
-    height: auto;
+    color: var(--BLACK-03, #747474);
+    text-align: center;
+    font-family: Pretendard;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 5px;
 }
+
+.review img {
+    width: 18px;
+    height: 19px;
+}
+
 .reservation {
-    width: 20px;
-    height: auto;
+    color: var(--BLACK-03, #747474);
+    text-align: center;
+    font-family: Pretendard;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 5px;
 }
+
+.reservation img {
+    width: 16px;
+    height: 19.2px;
+}
+
 .profile {
-    width: 24px;
-    height: auto;
+    color: var(--BLACK-03, #747474);
+    text-align: center;
+    font-family: Pretendard;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.profile img {
+    width: 19px;
+    height: 19px;
 }
