@@ -1,14 +1,12 @@
 import React from "react";
 import styles from '../../styles/home/omakase.module.css';
 
-function Omakase() {
+function Omakase(props) {
     return (
         <div className={styles.omakaseContainer}>
             <div className={styles.omakaseHeader}>
-                <div className={styles.omakaseTitle}>인기 오마카세</div>
-                <div className={styles.omakaseSubtitle}>
-                    이용객들이 만족한 오마카세를 확인해보세요
-                </div>
+                <div className={styles.omakaseTitle}>{props.title}</div>
+                <div className={styles.omakaseSubtitle}>{props.subtitle}</div>
             </div>
 
             <div className={styles.omakaseMore}>
