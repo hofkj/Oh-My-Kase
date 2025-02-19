@@ -1,9 +1,9 @@
 .restaurant_container {
     width: 152px;
-height: 156px;
-border-radius: 8px;
-background: #FFF;
-box-shadow: 0px 2px 4px 0px rgba(72, 72, 72, 0.14);
+    height: 156px;
+    border-radius: 8px;
+    background: #FFF;
+    box-shadow: 0px 2px 4px 0px rgba(72, 72, 72, 0.14);
 }
 
 .restaurant_img {
@@ -26,16 +26,16 @@ box-shadow: 0px 2px 4px 0px rgba(72, 72, 72, 0.14);
 .name {
     width: 85px;
     color: var(--BLACK-01, #131313);
-font-family: Pretendard;
-font-size: 13px;
-font-style: normal;
-font-weight: 500;
-line-height: normal;
+    font-family: Pretendard;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
 }
 
 .bookmark {
     width: 10px;
-height: 13px;
+    height: 13px;
 }
 
 .restaurant_info {
@@ -52,25 +52,25 @@ height: 13px;
 
 .star {
     width: 14px;
-height: 14px;
+    height: 14px;
 }
 
 .rating_value {
     color: var(--BLACK-02, #3D3D3D);
-text-align: center;
-font-family: Pretendard;
-font-size: 11px;
-font-style: normal;
-font-weight: 600;
-line-height: normal;
+    text-align: center;
+    font-family: Pretendard;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
 }
 
 .location {
     color: var(--BLACK-03, #747474);
-text-align: center;
-font-family: Pretendard;
-font-size: 10px;
-font-style: normal;
-font-weight: 500;
-line-height: normal;
+    text-align: center;
+    font-family: Pretendard;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
 }
