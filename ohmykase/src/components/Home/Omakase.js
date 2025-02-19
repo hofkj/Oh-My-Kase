@@ -1,7 +1,7 @@
 import React from "react";
 import styles from '../../styles/home/omakase.module.css';
 
-function Popularity() {
+function Omakase() {
     return (
         <div className={styles.omakaseContainer}>
             <div className={styles.omakaseHeader}>
@@ -18,4 +18,4 @@ function Popularity() {
     );
 }
 
-export default Popularity;
+export default Omakase;
