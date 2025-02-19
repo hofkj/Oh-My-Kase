@@ -1,5 +1,5 @@
 import React from "react";
-import Bottombar from "../components/Restaurant/bottombar";
+import Bottombar from "../components/restaurant/Bottombar";
 
 function RestaurantPage() {
     return (
