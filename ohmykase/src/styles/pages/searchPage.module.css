@@ -1,0 +1,56 @@
+.page {
+    padding: 0 17px;
+}
+
+.recent {
+    color: var(--BLACK-03, #747474);
+    font-family: Pretendard;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.recentContainer {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+
+}
+
+.hashtagContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+
+    margin: 14px 0 32px;
+}
+
+/* 세번쨰 */
+.noneContainer{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.none {
+    color: var(--BLACK-03, #747474);
+    font-family: Pretendard;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.input {
+    color: #A6A6A6;
+    font-family: Pretendard;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}

@@ -1,0 +1,42 @@
+.restaurant-card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 20px auto;
+    background-color: white;
+  }
+  
+  .restaurant-image img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .restaurant-info {
+    padding: 15px;
+  }
+  
+  .restaurant-name {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 10px 0;
+  }
+  
+  .restaurant-rating {
+    font-size: 16px;
+    color: #ff9800;
+  }
+  
+  .restaurant-images {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+  
+  .restaurant-images img {
+    width: 30%;
+    border-radius: 5px;
+  }
+  
