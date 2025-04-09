@@ -1,5 +1,5 @@
 import React from "react";
-import styles from '../../styles/Restaurant/bottombar.module.css';
+import styles from '../../styles/restaurant/bottombar.module.css';
 // import 'bootstrap-icons/font/bootstrap-icons.css';
 
 function Bottombar() {
