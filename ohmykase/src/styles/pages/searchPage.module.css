@@ -1,6 +1,12 @@
 .page {
     padding: 0 17px;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    overflow-x: hidden;
+    height: 100%;
 }
+
+ㅅ
 
 .recent {
     color: var(--BLACK-03, #747474);
@@ -52,5 +58,33 @@
     font-size: 13px;
     font-style: normal;
     font-weight: 400;
+    line-height: normal;
+}
+
+
+/* SearchResult */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 26px;
+    margin-top: 16px;
+}
+
+.ResultOmakaseContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.title {
+    color: var(--BLACK-03, #747474);
+    font-family: Pretendard;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
     line-height: normal;
 }
