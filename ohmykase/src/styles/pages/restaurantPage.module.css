@@ -1,0 +1,12 @@
+.restaurantDetail {
+    /* padding-top: 60px; */
+    overflow-y: scroll;
+    /* margin-top: 110px; */
+    /* margin-bottom: 200px; */
+    scrollbar-width: none;
+    overflow-x: hidden;
+    height: 90%;
+}
+
+
+
