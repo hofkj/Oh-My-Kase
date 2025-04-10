@@ -1,42 +1,70 @@
-.restaurant-card {
-    display: flex;
-    flex-direction: column;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
-    margin: 20px auto;
-    background-color: white;
-  }
-  
-  .restaurant-image img {
-    width: 100%;
-    height: auto;
-  }
-  
-  .restaurant-info {
-    padding: 15px;
-  }
-  
-  .restaurant-name {
-    font-size: 24px;
-    font-weight: bold;
-    margin: 10px 0;
-  }
-  
-  .restaurant-rating {
-    font-size: 16px;
-    color: #ff9800;
-  }
-  
-  .restaurant-images {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
-  }
-  
-  .restaurant-images img {
-    width: 30%;
-    border-radius: 5px;
-  }
-  
+.container {
+  position: relative;
+}
+
+
+.restaurantCard {
+  width: 338px;
+height: 123px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2px;
+}
+
+.img {
+  width: 110px;
+  height: 123px;
+}
+
+.textContainer {
+  display: flex;
+  width: 338px;
+  padding: 8px 12px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+box-sizing: border-box;
+
+position: absolute;
+top: 62%;
+}
+
+.name {
+  color: #FFF;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.infoContainer {
+  display: flex;
+  gap: 4px;
+}
+
+.star {
+  width: 10px;
+  height: 10px;
+  aspect-ratio: 1/1;
+}
+
+.mark {
+  color: var(--BLACK-05, var(--BLACK-05, #EEE));
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 8px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 14px; /* 175% */
+}
+
+.location {
+  color: var(--BLACK-05, var(--BLACK-05, #EEE));
+  font-family: Pretendard;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}

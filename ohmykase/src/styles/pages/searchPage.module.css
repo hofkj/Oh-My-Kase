@@ -88,3 +88,9 @@
     font-weight: 500;
     line-height: normal;
 }
+
+
+/* NoSearchResults */
+.noneContainer {
+    margin-top: 22px;
+}
