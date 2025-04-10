@@ -1,8 +1,8 @@
 .imageGallery {
     display: flex;
-    overflow-x: scroll;
     padding: 16px;
     gap: 6px;
+    overflow-x: scroll;
     scrollbar-width: none;
 }
 
