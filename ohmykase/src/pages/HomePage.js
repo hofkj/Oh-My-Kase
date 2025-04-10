@@ -9,7 +9,13 @@ import Nav from '../components/home/Nav';
 
 import styles from '../styles/pages/homePage.module.css';
 
+import { useNavigate } from "react-router-dom";
+
 function HomePage() {
+
+    const navigate = useNavigate();
+    
+
     //  선택한 위치와 메뉴 상태 관리
     const [selectedLocation, setSelectedLocation] = useState(null);
     const [selectedMenu, setSelectedMenu] = useState(null);

@@ -9,8 +9,12 @@ import ReviewList from "../components/restaurant/ReviewList";
 import Bottombar from "../components/restaurant/Bottombar";
 
 import styles from "../styles/pages/restaurantPage.module.css";
+import { useNavigate } from "react-router-dom";
+
 
 export default function RestaurantPage() {
+    const navigate = useNavigate();
+
     const [activeTab, setActiveTab] = useState("store");
 
     const restaurantData = {
@@ -40,6 +44,7 @@ export default function RestaurantPage() {
             timeAgo: "3분 전",
             text: "친구들 3명과 함께 갔는데 너무 맛있게 잘 먹었어요. 친구 한 명은 새우 알레르기가 있고 다른 한 명은 복숭아 알레르기가 있었는데 잘 배려해주셔서 덕분에 좋은 시간 보낼 수 있었어요! 다음에 다시 올게요!",
             images: [
+                "/images/restaurant/restaurant.png",
                 "/images/restaurant/restaurant.png",
                 "/images/restaurant/restaurant.png",
                 "/images/restaurant/restaurant.png"

@@ -11,7 +11,7 @@
     background: #FFF;   
 }
 
-button {
+.btn {
     display: flex;
     width: 341px;
     height: 45px;
