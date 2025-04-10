@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import styles from "../../styles/reservation/calendar.module.css"; // CSS 모듈 임포트
-import BottomButton from "../BottomButton";
+import styles from "../../styles/reservation/calendar.module.css";
+import BottomButton from "../common/BottomButton";
 import TimeSwiper from "./TimeSwiper";
 
 const Calendar = () => {
@@ -8,9 +8,12 @@ const Calendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [daysInMonth, setDaysInMonth] = useState([]);
   const [monthName, setMonthName] = useState("");
-  
+
   // activeDate 상태 추가: 클릭된 날짜를 저장
   const [activeDate, setActiveDate] = useState(null);
+
+  // 선택된 인원 상태 추가
+  const [selectedNumber, setSelectedNumber] = useState(null);
 
   // 날짜가 변경될 때마다 달력 갱신
   useEffect(() => {
@@ -74,6 +77,11 @@ const Calendar = () => {
     setActiveDate(date); // 클릭된 날짜를 activeDate 상태로 설정
   };
 
+  // 선택된 숫자를 설정하는 함수
+  const handleNumberClick = (num) => {
+    setSelectedNumber(num); // 클릭된 숫자를 selectedNumber 상태로 설정
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.calendar}>
@@ -103,9 +111,9 @@ const Calendar = () => {
               }`}
               onClick={() => !day.isOtherMonth && handleDateClick(day.date)} // 날짜 클릭 시 handleDateClick 호출
               style={{
-                backgroundColor: activeDate === day.date ? "#BB0038" : "#FFF",  // 클릭된 날짜의 배경색을 변경
+                backgroundColor: activeDate === day.date ? "#BB0038" : "#FFF", // 클릭된 날짜의 배경색을 변경
                 cursor: "pointer",
-                color: activeDate === day.date ? "#FFF" : "#131313" // 클릭된 날짜 텍스트 색상
+                color: activeDate === day.date ? "#FFF" : "#131313", // 클릭된 날짜 텍스트 색상
               }}
             >
               {day.date}
@@ -115,30 +123,32 @@ const Calendar = () => {
       </div>
 
       <div className={styles.numberSelection}>
-        <div>
-          <img src="../../images/icon/one.png" className={styles.numImg}/>
-          <div className={styles.numText}>1명</div>
-        </div>
-        <div>
-          <img src="../../images/icon/two.png" className={styles.numImg}/>
-          <div className={styles.numText}>2명</div>
-        </div>
-        <div>
-          <img src="../../images/icon/three.png" className={styles.numImg}/>
-          <div className={styles.numText}>3명</div>
-        </div>
-        <div>
-          <img src="../../images/icon/four.png" className={styles.numImg}/>
-          <div className={styles.numText}>4명</div>
-        </div>
-        <div>
-          <img src="../../images/icon/five.png" className={styles.numImg}/>
-          <div className={styles.numText}>5명</div>
-        </div>
+        {[1, 2, 3, 4, 5].map((num) => (
+          <div key={num}>
+            <img
+              src={
+                selectedNumber === num
+                  ? `../../images/icon/${num}_red.png`
+                  : `../../images/icon/${num}.png`
+              }
+              className={styles.numImg}
+              onClick={() => handleNumberClick(num)}
+              style={{ cursor: "pointer" }}
+            />
+            <div
+              className={styles.numText}
+              style={{
+                color: selectedNumber === num ? "#BB0038" : "#B3B3B3",
+              }}
+            >
+              {num}명
+            </div>
+          </div>
+        ))}
       </div>
 
-      <TimeSwiper/>
-      <BottomButton text="확인"/>
+      <TimeSwiper />
+      <BottomButton text="확인" />
     </div>
   );
 };

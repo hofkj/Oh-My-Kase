@@ -27,6 +27,8 @@
 .input {
     border: none;
     background-color: #F9F9F9;
+    outline: none;
+
 }
 
 .btn {
