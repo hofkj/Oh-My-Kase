@@ -1,25 +1,26 @@
 import React from "react";
 import styles from "../../styles/search/ResultOmakase.module.css";
 
-function ResultOmakase() {
-    return (
-      <div className={styles.container}>
-        <div className={styles.restaurantCard}>
-         <img src="/images/restaurant/interior1.png" className={styles.img}/>
-          <img src="/images/restaurant/interior2.png" className={styles.img}/>
-          <img src="/images/restaurant/interior3.png" className={styles.img}/>
-        </div>
+function ResultOmakase({ restaurant }) {
+  return (
+    <div className={styles.container}>
+      <div className={styles.restaurantCard}>
+        {/* galleryImages 배열에 있는 모든 이미지를 렌더링 */}
+        {restaurant.galleryImages.map((image, index) => (
+          <img key={index} src={image} alt={`Restaurant Image ${index + 1}`} className={styles.img} />
+        ))}
+      </div>
 
-        <div className={styles.textContainer}>
-          <div className={styles.name}>만텐 스시 마루노우치점</div>
-          <div className={styles.infoContainer}>
-            <img src="/images/icon/star.png" className={styles.star}/>
-            <div className={styles.mark}>4.5</div>
-            <div className={styles.location}>도쿄도 치요다구</div>
-          </div>
+      <div className={styles.textContainer}>
+        <div className={styles.name}>{restaurant.name}</div>
+        <div className={styles.infoContainer}>
+          <img src="/images/icon/star.png" className={styles.star} />
+          <div className={styles.rating}>{restaurant.rating}</div>
+          <div className={styles.location}>{restaurant.address}</div>
         </div>
-        </div>
-      );
+      </div>
+    </div>
+  );
 }
 
 export default ResultOmakase;

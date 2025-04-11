@@ -7,23 +7,35 @@ import NoSearchResults from "../components/search/NoSearchResults";
 import styles from "../styles/pages/searchPage.module.css";
 
 function SearchPage() {
+  const [keyword, setKeyword] = useState(""); // 검색어
+  const [searchResult, setSearchResult] = useState([]); // 검색 결과
+  const [hasSearched, setHasSearched] = useState(false); // 검색 여부
+
+  // 🔍 검색 실행 함수
+  const handleSearch = (input) => {
+    setKeyword(input);
+    setHasSearched(true);
+
+    // 예시: 샘플 데이터
+    const sampleData = ["스시", "연어", "와규", "우니", "오마카세"];
+    const filtered = sampleData.filter((item) => item.includes(input));
+
+    setSearchResult(filtered);
+  };
+
   return (
     <div className={styles.page}>
-      <SearchBar />
+      <SearchBar onSearch={handleSearch} />
+      {!hasSearched && <Search onHashtagClick={handleSearch} />}
 
+      {/* 검색 결과가 있을 때 */}
+      {hasSearched && searchResult.length > 0 && (
+        <SearchResult data={searchResult} />
+      )}
 
-{/* 기본 화면 */}
-    <Search/>
-       
-
-      {/* 검색 결과 값이 있을 때 */}
-      <SearchResult/>
-
-
-
-      {/* 검색 결과 값이 없을 때 */}
-      <NoSearchResults/>
-      
+      {hasSearched && searchResult.length === 0 && (
+        <NoSearchResults keyword={keyword} />
+      )}
     </div>
   );
 }

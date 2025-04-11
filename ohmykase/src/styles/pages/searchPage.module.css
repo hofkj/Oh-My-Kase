@@ -27,12 +27,22 @@
 
 .hashtagContainer {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: row;
+    overflow-x: auto; /* 가로 스크롤 허용 */
     gap: 6px;
-
+    height: 30px;
     margin: 14px 0 32px;
-}
+    padding-bottom: 6px;
+  
+    /* 스크롤바 감추기 (크로스 브라우징 처리) */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+  }
+  
+  .hashtagContainer::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
+  }
+  
 
 /* 세번쨰 */
 .noneContainer{
