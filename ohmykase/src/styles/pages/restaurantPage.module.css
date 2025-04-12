@@ -9,4 +9,70 @@
 }
 
 
-
+.calendarWrapper {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: none;
+  }
+  
+  .calendarWrapper.show {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+  
+  .calendarWrapper.hide {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+  
+  .calendarOverlay {
+    position: absolute;
+    background: rgba(19, 19, 19, 0.4);
+    width: 373px;
+    height: 812px;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+  }
+  
+  .calendarContent {
+    position: relative;
+    background: #fff;
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
+    padding: 16px;
+    width: 344px;
+    z-index: 10;
+    animation: slideUp 0.3s ease-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /*  slideUp: 위로 올라올 때 */
+  @keyframes slideUp {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0%);
+    }
+  }
+  
+  /* ✅ slideDown: 아래로 내려갈 때 */
+  .calendarWrapper.hide .calendarContent {
+    animation: slideDown 0.3s ease-in;
+  }
+  
+  @keyframes slideDown {
+    from {
+      transform: translateY(0%);
+    }
+    to {
+      transform: translateY(100%);
+    }
+  }
+  
