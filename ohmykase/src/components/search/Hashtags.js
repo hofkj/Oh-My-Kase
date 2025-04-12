@@ -3,7 +3,7 @@ import styles from '../../styles/search/hashtag.module.css';
 
 function Hashtag(props) {
   return (
-        <div className={styles.container}>{props.info}</div>
+        <div className={styles.container}>#{props.info}</div>
   );
 }
 
