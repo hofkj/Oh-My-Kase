@@ -7,6 +7,7 @@ import HomePage from './pages/HomePage';
 import RestaurantPage from './pages/RestaurantPage';
 import SearchPage from './pages/SearchPage';
 import ReservationPage from './pages/ReservationPage';
+import ReservationUserInfoPage from "./pages/ReservationUserInfoPage";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ const Main = () => {
         <Route path="/RestaurantPage" element={<RestaurantPage />} />
         <Route path="/SearchPage" element={<SearchPage />} />
         <Route path="/ReservationPage" element={<ReservationPage />} />
+        <Route path="/ReservationUserInfoPage" element={<ReservationUserInfoPage />} />
       </Routes>
     </div>
   );
