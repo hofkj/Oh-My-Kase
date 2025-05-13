@@ -26,6 +26,7 @@
     align-self: stretch;
     border-radius: 8px;
     background: var(--BLACK-06, #F9F9F9);
+    box-sizing: border-box;
 }
 
 input {

@@ -21,14 +21,14 @@ function PriceRangeInput({ label }) {
           type="number"
           value={minPrice}
           onChange={handleMinPriceChange}
-          placeholder="최소 가격"
+          placeholder="¥ 1,000"
         />
         <span>~</span>
         <input
           type="number"
           value={maxPrice}
           onChange={handleMaxPriceChange}
-          placeholder="최대 가격"
+          placeholder="¥ 10,000"
         />
       </div>
     </div>
