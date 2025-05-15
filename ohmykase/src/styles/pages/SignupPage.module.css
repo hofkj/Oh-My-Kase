@@ -1,0 +1,85 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.InputContainer {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    height: 69px;
+    width: 340px;
+    gap: 10px;
+  }
+  
+  .title {
+    color: var(--BLACK-02, var(--BLACK-02, #3D3D3D));
+    font-family: Pretendard;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+  
+  .input {
+    display: flex;
+    height: 40px;
+    padding: 6px 12px;
+    align-items: center;
+    gap: 10px;
+    align-self: stretch;
+    border-radius: 8px;
+    background: var(--BLACK-06, #F9F9F9);
+    box-sizing: border-box;
+  }
+  
+  input {
+    background: none;
+    border: none;
+    outline: none;
+  }
+  
+  .form {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 40px;
+  }
+  
+  .email {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    flex-direction: column;
+    gap: 6px;
+  }
+  
+  .emailBtn {
+    display: flex;
+    padding: 6px 10px;
+    align-items: center;
+    border: none;
+    border-radius: 6px;
+    background: var(--BLACK-04, #D5D5D5);
+    color: #FFF;
+    text-align: center;
+    font-family: Pretendard;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+  
+  .emailBtn:disabled {
+    background: var(--BLACK-04, #D5D5D5);
+    cursor: not-allowed;
+  }
+  
+  .activeBtn {
+    background-color: #BB0038; /* 활성화된 버튼 색상 */
+  }
+  

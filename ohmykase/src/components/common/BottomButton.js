@@ -2,13 +2,15 @@ import React from "react";
 import styles from "../../styles/common/bottomButton.module.css";
 import { useNavigate } from "react-router-dom";
 
-function BottomButton({ text, navigateTo }) {
+function BottomButton({ text, navigateTo, onClick }) {
   const navigate = useNavigate();
 
-  // 버튼 클릭 시 지정된 경로로 이동
   const handleClick = () => {
-    navigate(navigateTo); // navigateTo로 이동
-    window.scrollTo({ top: 0, behavior: "smooth" }); // 페이지 맨 위로 스크롤
+    if (onClick) {
+      onClick(); // onClick이 존재하면 호출
+    } else if (navigateTo) {
+      navigate(navigateTo); // navigateTo가 있을 경우 페이지 이동
+    }
   };
 
   return (
