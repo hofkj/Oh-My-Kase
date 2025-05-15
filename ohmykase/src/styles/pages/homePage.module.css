@@ -18,13 +18,13 @@
 
 .pageContainer {
     overflow-y: scroll;
-    margin-top: 110px;
+    margin-top: 64px;
     /* margin-bottom: 200px; */
     scrollbar-width: none;
     overflow-x: hidden;
 
     /* 디자인과 상의 */
-    height: 75%;
+    height: 81%;
 }
 
 .dropdownContainer {
