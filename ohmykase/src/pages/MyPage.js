@@ -2,7 +2,7 @@ import React from "react";
 import styles from "../styles/pages/MyPage.module.css";
 import PageHeader from "../components/common/PageHeader";
 import Nav from "../components/common/Nav";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import RestaurantSwiper from "../components/home/RestaurantSwiper";
 
 function MyPage() {
@@ -51,7 +51,7 @@ const navigate = useNavigate();
               </div>
             </div>
           </div>
-          <div className={styles.reviewButton}>리뷰 쓰러가기</div>
+          <Link to="/ReviewPage" className={styles.link}><div className={styles.reviewButton}>리뷰 쓰러가기</div></Link>
         </div>
       </div>
 

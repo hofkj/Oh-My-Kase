@@ -198,3 +198,8 @@
     align-items: center;
     gap: 8px;
 }
+
+.link {
+  text-decoration: none; /* 링크의 밑줄 제거 */
+  color: inherit; /* 부모 색상으로 상속 */
+}
