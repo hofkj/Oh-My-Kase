@@ -9,6 +9,9 @@
     gap: 10px;
     border-top: 0.4px solid var(--BLACK-04, #D5D5D5);
     background: #FFF;   
+    position: fixed;
+    bottom: 0;
+    z-index: 9999;
 }
 
 .backBtn {
