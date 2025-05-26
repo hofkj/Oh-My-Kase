@@ -1,20 +1,21 @@
-import React, { useState } from "react";
-import styles from "../../styles/restaurant/tabMenu.module.css";
+import React from "react";
+import styles from "../../styles/common/tabMenu.module.css";
 
-export default function TabMenu({ activeTab, setActiveTab }) {
+export default function TabMenu({ activeTab, setActiveTab, option1, option2 }) {
     return (
         <div className={styles.tabMenu}>
+            {/* 버튼 클릭 시 activeTab 상태를 변경 */}
             <button 
                 className={activeTab === "store" ? styles.active : ""}
                 onClick={() => setActiveTab("store")}
             >
-                가게
+                {option1}
             </button>
             <button 
                 className={activeTab === "review" ? styles.active : ""}
                 onClick={() => setActiveTab("review")}
             >
-                리뷰
+                {option2}
             </button>
         </div>
     );
