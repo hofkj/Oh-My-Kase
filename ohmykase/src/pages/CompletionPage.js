@@ -32,7 +32,7 @@ function CompletionPage() {
         back="홈으로 가기"
         next="예약 내역 보기"
         navigateToBack="/" 
-        navigateToNext="/"/>
+        navigateToNext="/NavReservationPage"/>
     </div>
   );
 }
