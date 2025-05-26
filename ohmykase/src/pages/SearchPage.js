@@ -11,7 +11,7 @@ function SearchPage() {
   const [searchResult, setSearchResult] = useState([]); // 검색 결과
   const [hasSearched, setHasSearched] = useState(false); // 검색 여부
 
-  // 🔍 검색 실행 함수
+  //  검색 실행 함수
   const handleSearch = (input) => {
     setKeyword(input);
     setHasSearched(true);
