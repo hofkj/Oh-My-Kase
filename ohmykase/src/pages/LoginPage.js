@@ -26,7 +26,7 @@ function LoginPage() {
   const handleLogin = () => {
     // 로그인 로직 구현
     // console.log("로그인 시도:", { email, password })
-    navigate("/SignupPage");
+    navigate("/");
 
   }
 
@@ -79,7 +79,7 @@ function LoginPage() {
             <img src="/images/icon/logo.png" className={styles.brandLogo}/>
             <span> 가 처음이라면?</span>
           </div>
-          <Link to="/signup" className={styles.signupLink}>
+          <Link to="/SignupPage" className={styles.signupLink}>
             <span>회원가입 하러 가기</span>
             <img src="/images/icon/arrow_red.png"
               className={styles.arrowIcon}

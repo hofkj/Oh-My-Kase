@@ -189,6 +189,10 @@
   transition: background-color 0.2s;
 
   background: #bb0038;
+  position: absolute;
+  bottom: 3%;
+  left: 7%;
+
   /* background: var(--BLACK-04, #D5D5D5); */
 }
 
