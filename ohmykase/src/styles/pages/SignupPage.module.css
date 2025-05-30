@@ -84,4 +84,9 @@
   .activeBtn {
     background-color: #BB0038; /* 활성화된 버튼 색상 */
   }
+
+  .eyeButton {
+    border: none;
+    background: none;
+  }
   
