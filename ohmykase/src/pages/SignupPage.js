@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
 import styles from "../styles/pages/SignupPage.module.css";
 import TitleHeaderBar from "../components/common/TitleHeaderBar";
 import Progress from "../components/common/Progress";
@@ -8,29 +10,49 @@ import BottomButton from "../components/common/BottomButton";
 function SignupPage() {
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState("");
-  const [isEmailValid, setIsEmailValid] = useState(false);
-  const [isCodeSent, setIsCodeSent] = useState(false);
+  const [name, setName] = useState("");
+  const [nickname, setNickname] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleArrowClick = () => {
     navigate("/LoginPage");
   };
 
-  const handleNextClick = () => {
-    navigate("/PasswordPage");
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
-  const handleEmailChange = (e) => {
-    const emailInput = e.target.value;
-    setEmail(emailInput);
-
-    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-    setIsEmailValid(emailRegex.test(emailInput));
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword);
   };
 
-  const handleSendVerification = () => {
-    setIsCodeSent(true);
-    console.log("인증번호 발송:", email);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (password !== confirmPassword) {
+      alert("비밀번호가 일치하지 않습니다.");
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/user/join/7VCEB37-69B4CKZ-QV2674N-BTZTWXE",
+        {
+          name: name,
+          nickname: nickname,
+          password: password,
+          password_ck: confirmPassword,
+        }
+      );
+      alert("회원가입 성공!");
+      navigate("/LoginPage");
+    } catch (error) {
+      console.error("회원가입 실패:", error.response?.data || error.message);
+      alert("회원가입 실패. 입력을 다시 확인해주세요.");
+    }
   };
 
   return (
@@ -38,45 +60,93 @@ function SignupPage() {
       <TitleHeaderBar title="회원가입" onArrowClick={handleArrowClick} />
       <Progress imgSrc="/images/icon/progress.png" />
 
-      <form className={styles.form}>
+      <form className={styles.form} onSubmit={handleSubmit}>
         <div className={styles.InputContainer}>
           <div className={styles.title}>이름을 입력해주세요</div>
           <div className={styles.input}>
-            <input placeholder="유나현" />
+            <input
+              type="text"
+              placeholder="이름"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
           </div>
-        </div>
-
-        <div className={styles.email}>
-          <div className={styles.InputContainer}>
-            <div className={styles.title}>이메일을 입력해주세요</div>
-            <div className={styles.input}>
-              <input
-                type="email"
-                placeholder="youmenow@gmail.com"
-                value={email}
-                onChange={handleEmailChange}
-              />
-            </div>
-          </div>
-
-          <button
-            className={`${styles.emailBtn} ${isEmailValid ? styles.activeBtn : ""}`}
-            onClick={handleSendVerification}
-            disabled={!isEmailValid || isCodeSent}
-          >
-            {isCodeSent ? "인증번호 발송됨" : "인증번호 받기"}
-          </button>
         </div>
 
         <div className={styles.InputContainer}>
-          <div className={styles.title}>인증번호를 입력해주세요</div>
+          <div className={styles.title}>아이디를 입력해주세요</div>
           <div className={styles.input}>
-            <input placeholder="인증번호를 입력해주세요" />
+            <input
+              type="text"
+              placeholder="아이디"
+              value={nickname}
+              onChange={(e) => setNickname(e.target.value)}
+              required
+            />
           </div>
         </div>
-      </form>
 
-      <BottomButton text="다음" navigateTo="/PasswordPage" />
+        <div className={styles.InputContainer}>
+          <div className={styles.title}>비밀번호</div>
+          <div className={styles.input}>
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="영문+숫자+특수문자 8자 이상"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <button
+              type="button"
+              className={styles.eyeButton}
+              onClick={togglePasswordVisibility}
+            >
+              <img
+                src={
+                  showPassword
+                    ? "/images/icon/eye-open.png"
+                    : "/images/icon/eye-closed.png"
+                }
+                alt="비밀번호 보기"
+              />
+            </button>
+          </div>
+        </div>
+
+        <div className={styles.InputContainer}>
+          <div className={styles.title}>비밀번호 확인</div>
+          <div className={styles.input}>
+            <input
+              type={showConfirmPassword ? "text" : "password"}
+              placeholder="비밀번호를 다시 입력해주세요"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+            />
+            <button
+              type="button"
+              className={styles.eyeButton}
+              onClick={toggleConfirmPasswordVisibility}
+            >
+              <img
+                src={
+                  showConfirmPassword
+                    ? "/images/icon/eye-open.png"
+                    : "/images/icon/eye-closed.png"
+                }
+                alt="비밀번호 보기"
+              />
+            </button>
+          </div>
+        </div>
+
+        <div className={styles.submitButton}>
+          <button type="submit" className={styles.btn}>
+            다음
+          </button>
+        </div>
+      </form>
     </div>
   );
 }
