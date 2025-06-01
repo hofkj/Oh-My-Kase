@@ -1,34 +1,50 @@
-"use client"
-
-import { useState } from "react"
-import { useNavigate } from "react-router-dom"
-import { Link } from "react-router-dom"
-import styles from "../styles/pages/LoginPage.module.css"
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import axios from "axios";
+import styles from "../styles/pages/LoginPage.module.css";
 
 function LoginPage() {
-  const navigate = useNavigate()
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [showPassword, setShowPassword] = useState(false)
+  const navigate = useNavigate();
+  const [nickname, setNickname] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value)
-  }
+  const handleNicknameChange = (e) => {
+    setNickname(e.target.value);
+  };
 
   const handlePasswordChange = (e) => {
-    setPassword(e.target.value)
-  }
+    setPassword(e.target.value);
+  };
 
   const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword)
-  }
+    setShowPassword(!showPassword);
+  };
 
-  const handleLogin = () => {
-    // 로그인 로직 구현
-    // console.log("로그인 시도:", { email, password })
-    navigate("/");
+  const handleLogin = async () => {
+    if (!nickname || !password) {
+      alert("아이디와 비밀번호를 입력해주세요.");
+      return;
+    }
 
-  }
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/user/login/7VCEB37-69B4CKZ-QV2674N-BTZTWXE",
+        {
+          nickname: nickname,
+          password: password,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+      alert("로그인 성공!");
+      navigate("/");
+    } catch (error) {
+      console.error("로그인 실패:", error.response?.data || error.message);
+      alert(error.response?.data?.error || "로그인 실패. 아이디 또는 비밀번호를 확인해주세요.");
+    }
+  };
 
   return (
     <div className={styles.container}>
@@ -38,13 +54,13 @@ function LoginPage() {
 
       <div className={styles.formContainer}>
         <div className={styles.inputGroup}>
-          <label className={styles.label}>이메일</label>
+          <label className={styles.label}>아이디</label>
           <input
-            type="email"
+            type="text"
             className={styles.input}
-            placeholder="이메일을 작성해주세요"
-            value={email}
-            onChange={handleEmailChange}
+            placeholder="아이디를 입력해주세요"
+            value={nickname}
+            onChange={handleNicknameChange}
           />
         </div>
 
@@ -54,7 +70,7 @@ function LoginPage() {
             <input
               type={showPassword ? "text" : "password"}
               className={styles.input}
-              placeholder="비밀번호를 작성해주세요"
+              placeholder="비밀번호를 입력해주세요"
               value={password}
               onChange={handlePasswordChange}
             />
@@ -76,14 +92,12 @@ function LoginPage() {
 
         <div className={styles.signupContainer}>
           <div className={styles.signupText}>
-            <img src="/images/icon/logo.png" className={styles.brandLogo}/>
+            <img src="/images/icon/logo.png" className={styles.brandLogo} />
             <span> 가 처음이라면?</span>
           </div>
           <Link to="/SignupPage" className={styles.signupLink}>
             <span>회원가입 하러 가기</span>
-            <img src="/images/icon/arrow_red.png"
-              className={styles.arrowIcon}
-            />
+            <img src="/images/icon/arrow_red.png" className={styles.arrowIcon} />
           </Link>
         </div>
 
@@ -92,7 +106,7 @@ function LoginPage() {
         </button>
       </div>
     </div>
-  )
+  );
 }
 
-export default LoginPage
+export default LoginPage;
