@@ -1,13 +1,15 @@
 import React from "react";
 import styles from "../../styles/common/inputContainer.module.css";
 
-function InputContainer(props) {
+function InputContainer({ title, value, onChange }) {
     return (
         <div className={styles.container}>
-            <div className={styles.title}>{props.title}</div>
-            <div className={styles.input}><input placeholder="이름"/></div>
+            <div className={styles.title}>{title}</div>
+            <div className={styles.input}>
+                <input placeholder={title} value={value} onChange={onChange} />
+            </div>
         </div>
-    )
+    );
 }
 
 export default InputContainer;
