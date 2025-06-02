@@ -5,10 +5,16 @@ function ResultOmakase({ restaurant }) {
   return (
     <div className={styles.container}>
       <div className={styles.restaurantCard}>
-        {/* galleryImages 배열에 있는 모든 이미지를 렌더링 */}
         {restaurant.galleryImages.map((image, index) => (
-          <img key={index} src={image} alt={`Restaurant Image ${index + 1}`} className={styles.img} />
+          <img
+            key={index}
+            src={image}
+            alt={`Restaurant Image ${index + 1}`}
+            className={styles.img}
+          />
         ))}
+
+        <div className={styles.shadowOverlay}></div>
       </div>
 
       <div className={styles.textContainer}>
