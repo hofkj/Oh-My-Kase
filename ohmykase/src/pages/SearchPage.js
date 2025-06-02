@@ -1,26 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SearchBar from "../components/search/Search-Bar";
 import Search from "../components/search/Search";
 import SearchResult from "../components/search/SearchResult";
 import NoSearchResults from "../components/search/NoSearchResults";
-
 import styles from "../styles/pages/searchPage.module.css";
 
 function SearchPage() {
   const [keyword, setKeyword] = useState(""); // 검색어
-  const [searchResult, setSearchResult] = useState([]); // 검색 결과
   const [hasSearched, setHasSearched] = useState(false); // 검색 여부
+  const [restaurantData, setRestaurantData] = useState([]); // 전체 데이터
+  const [filteredData, setFilteredData] = useState([]); // 필터링된 검색 결과
 
-  //  검색 실행 함수
+  // JSON 불러오기
+  useEffect(() => {
+    fetch("/data/omakase.json")
+      .then((res) => res.json())
+      .then((data) => setRestaurantData(data))
+      .catch((err) => console.error("데이터 불러오기 실패:", err));
+  }, []);
+
   const handleSearch = (input) => {
     setKeyword(input);
     setHasSearched(true);
 
-    // 예시: 샘플 데이터
-    const sampleData = ["스시", "연어", "와규", "우니", "오마카세"];
-    const filtered = sampleData.filter((item) => item.includes(input));
+    const lowerInput = input.toLowerCase();
 
-    setSearchResult(filtered);
+    const filtered = restaurantData.filter((item) => {
+      const valuesToCheck = [
+        item.name,
+        item.ownerMessage,
+        item.address,
+        (item.tags || []).join(" "),
+        (item.menuCategories || []).join(" "),
+        (item.locationCategories || []).join(" "),
+      ];
+
+      return valuesToCheck.some((value) =>
+        value.toLowerCase().includes(lowerInput)
+      );
+    });
+
+    setFilteredData(filtered);
   };
 
   return (
@@ -28,12 +48,11 @@ function SearchPage() {
       <SearchBar onSearch={handleSearch} />
       {!hasSearched && <Search onHashtagClick={handleSearch} />}
 
-      {/* 검색 결과가 있을 때 */}
-      {hasSearched && searchResult.length > 0 && (
-        <SearchResult data={searchResult} />
+      {hasSearched && filteredData.length > 0 && (
+        <SearchResult data={filteredData} keyword={keyword} />
       )}
 
-      {hasSearched && searchResult.length === 0 && (
+      {hasSearched && filteredData.length === 0 && (
         <NoSearchResults keyword={keyword} />
       )}
     </div>

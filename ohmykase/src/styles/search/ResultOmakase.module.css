@@ -1,33 +1,55 @@
 .container {
   position: relative;
+  width: 338px;
+  height: 123px;
 }
 
-
 .restaurantCard {
+  position: relative;
   width: 338px;
-height: 123px;
+  height: 123px;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 2px;
+  border-radius: 8px;
+  overflow: hidden;
+  z-index: 1;
 }
 
 .img {
-  width: 110px;
+  width: 112px;
   height: 123px;
+  object-fit: cover;
+  position: relative;
+  z-index: 0;
+}
+
+.shadowOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(217, 217, 217, 0.00) 34.55%,
+    #000000 100%
+  );
+  z-index: 1;
+  border-radius: 8px;
+  pointer-events: none;
 }
 
 .textContainer {
-  display: flex;
+  position: absolute;
+  top: 60%;
+  left: 0;
   width: 338px;
   padding: 8px 12px;
+  display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 1px;
-box-sizing: border-box;
-
-position: absolute;
-top: 62%;
+  box-sizing: border-box;
+  z-index: 2;
 }
 
 .name {
@@ -50,18 +72,18 @@ top: 62%;
   aspect-ratio: 1/1;
 }
 
-.mark {
-  color: var(--BLACK-05, var(--BLACK-05, #EEE));
+.rating {
+  color: var(--BLACK-05, #EEE);
   text-align: center;
   font-family: Pretendard;
   font-size: 8px;
   font-style: normal;
   font-weight: 500;
-  line-height: 14px; /* 175% */
+  line-height: 14px;
 }
 
 .location {
-  color: var(--BLACK-05, var(--BLACK-05, #EEE));
+  color: var(--BLACK-05, #EEE);
   font-family: Pretendard;
   font-size: 10px;
   font-style: normal;
