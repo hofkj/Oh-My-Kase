@@ -1,29 +1,87 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../../styles/map/mapItem.module.css";
+import axios from "axios";
 
-function MapItem() {
+function MapItem({ shopId }) {
+  const apiKey = "7VCEB37-69B4CKZ-QV2674N-BTZTWXE";
+  const [shops, setShops] = useState([]);
+
+  useEffect(() => {
+    if (shopId) {
+      // 단일 가게 정보 불러오기
+      axios
+        .get(`http://localhost:3000/api/shop/${apiKey}/${shopId}`)
+        .then((res) => {
+          const shopData = res.data[0];
+          shopData.shop_images = shopData.shop_images?.split(",") || [];
+          setShops([shopData]);
+        })
+        .catch((err) => console.error("가게 정보 불러오기 실패:", err));
+    } else {
+      // 북마크된 가게 목록 불러오기
+      axios
+        .get(`http://localhost:3000/api/bookmark/user/${apiKey}`, {
+          withCredentials: true,
+        })
+        .then((res) => {
+          const bookmarkList = res.data.bookmark_list || [];
+          const parsedList = bookmarkList.map((shop) => ({
+            ...shop,
+            shop_images: shop.shop_images?.split(",") || [],
+          }));
+          setShops(parsedList);
+        })
+        .catch((err) => console.error("북마크 불러오기 실패:", err));
+    }
+  }, [shopId]);
+
+  if (shops.length === 0) {
+    return <div>가게 정보를 불러오는 중입니다...</div>;
+  }
+
   return (
     <div className={styles.container}>
-      <div className={styles.infoContainer}>
-        <div className={styles.restaurantInfo}>
-          <div className={styles.restaurantName}>
-            <div>스시 도쿄 텐 도쿄점</div>
-            <img src="/images/icon/star_red.png" alt="Star" className={styles.starIcon} />
-            <div className={styles.rating}>4</div>
+      {shops.map((shop, index) => (
+        <div className={styles.infoContainer} key={index}>
+          <div className={styles.restaurantInfo}>
+            <div className={styles.restaurantName}>
+              <div>{shop.shop_name}</div>
+              <img
+                src="/images/icon/star_red.png"
+                alt="Star"
+                className={styles.starIcon}
+              />
+              <div className={styles.rating}>{shop.rating}</div>
+            </div>
+            <div className={styles.bookmarkIcon}>
+              <img src="/images/icon/bookmark_red.png" alt="Bookmark" />
+            </div>
           </div>
-          <div className={styles.bookmarkIcon}>
-            <img src="/images/icon/bookmark_red.png" alt="Bookmark" />
+          <div className={styles.address}>{shop.area_name}</div>
+
+          <div className={styles.imageContainer}>
+            {shop.shop_images.length > 0 ? (
+              shop.shop_images.slice(0, 4).map((img, i) => (
+                <img
+                  key={i}
+                  src={img}
+                  alt={`Shop ${i + 1}`}
+                  className={styles.restaurantImage}
+                />
+              ))
+            ) : (
+              [1, 2, 3, 4].map((i) => (
+                <img
+                  key={i}
+                  src={`/images/restaurant/sushi${i}.png`}
+                  alt={`기본 이미지 ${i}`}
+                  className={styles.restaurantImage}
+                />
+              ))
+            )}
           </div>
         </div>
-        <div className={styles.address}>도쿄도 시부야구</div>
-      </div>
-
-      <div className={styles.imageContainer}>
-        <img src="/images/restaurant/sushi1.png" alt="Sushi 1" className={styles.restaurantImage} />
-        <img src="/images/restaurant/sushi2.png" alt="Sushi 2" className={styles.restaurantImage} />
-        <img src="/images/restaurant/sushi3.png" alt="Sushi 3" className={styles.restaurantImage} />
-        <img src="/images/restaurant/sushi4.png" alt="Sushi 4" className={styles.restaurantImage} />
-      </div>
+      ))}
     </div>
   );
 }
