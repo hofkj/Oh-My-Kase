@@ -1,11 +1,54 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import styles from "../../styles/restaurant/bottombar.module.css";
 
-function Bottombar({ onClickReserve }) {
+function Bottombar({ onClickReserve, shopId }) {
   const [isBookmarked, setIsBookmarked] = useState(false);
+  const [bookmarkCount, setBookmarkCount] = useState(0);
+  const apiKey = "7VCEB37-69B4CKZ-QV2674N-BTZTWXE";
 
-  const toggleBookmark = () => {
-    setIsBookmarked((prevState) => !prevState);
+  useEffect(() => {
+    if (!shopId) return;
+
+    // 1. 북마크 수 가져오기
+    axios
+      .get(`http://localhost:3000/api/bookmark/shop/${apiKey}/${shopId}`)
+      .then((res) => setBookmarkCount(res.data.bookmark_sum))
+      .catch((err) => console.error("북마크 수 불러오기 실패:", err));
+
+    // 2. 현재 유저의 북마크 목록 확인 (이 가게가 북마크 되어 있는지)
+    axios
+      .get(`http://localhost:3000/api/bookmark/user/${apiKey}`)
+      .then((res) => {
+        const list = res.data.bookmark_list || [];
+        const found = list.find((shop) => shop.id === shopId);
+        setIsBookmarked(!!found);
+      })
+      .catch((err) => console.error("북마크 여부 확인 실패:", err));
+  }, [shopId]);
+
+  const toggleBookmark = async () => {
+    if (!shopId) return;
+
+    try {
+      if (isBookmarked) {
+        // 북마크 삭제
+        await axios.delete(
+          `http://localhost:3000/api/bookmark/delete/${apiKey}/${shopId}`
+        );
+        setBookmarkCount((prev) => Math.max(prev - 1, 0));
+      } else {
+        // 북마크 추가
+        await axios.post(
+          `http://localhost:3000/api/bookmark/add/${apiKey}/${shopId}`
+        );
+        setBookmarkCount((prev) => prev + 1);
+      }
+
+      setIsBookmarked((prev) => !prev);
+    } catch (err) {
+      console.error("북마크 처리 실패:", err);
+    }
   };
 
   return (
@@ -22,7 +65,7 @@ function Bottombar({ onClickReserve }) {
           onClick={toggleBookmark}
           style={{ cursor: "pointer" }}
         />
-        <div className={styles.bookmarkNum}>2,911</div>
+        <div className={styles.bookmarkNum}>{bookmarkCount}</div>
       </div>
 
       <button className={styles.reservation_button} onClick={onClickReserve}>
