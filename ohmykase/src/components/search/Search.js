@@ -2,24 +2,22 @@ import React, { useState, useEffect } from "react";
 import Hashtag from "./Hashtags";
 import Record from "./Record";
 import styles from "../../styles/pages/searchPage.module.css";
+import axios from "axios";
 
 function Search({ onHashtagClick }) {
   const [hashtags, setHashtags] = useState([]);
-
-  // 랜덤으로 해시태그 5개 선택하는 함수
-  const getRandomHashtags = (arr, num) => {
-    const shuffled = [...arr].sort(() => 0.5 - Math.random());
-    return shuffled.slice(0, num);
-  };
+  const apiKey = "7VCEB37-69B4CKZ-QV2674N-BTZTWXE";
 
   useEffect(() => {
-    // JSON 파일 불러오기
-    fetch("/data/hashtag.json")
-      .then((response) => response.json())
-      .then((data) => {
-        setHashtags(getRandomHashtags(data.hashtags, 5));
+    axios
+      .get(`http://localhost:3000/api/search/random_tag/${apiKey}`)
+      .then((res) => {
+        const tagNames = res.data.map((tag) => tag.tag_name); // tag_name만 추출
+        setHashtags(tagNames);
       })
-      .catch((error) => console.error("Error fetching data: ", error));
+      .catch((error) => {
+        console.error("해시태그 불러오기 실패:", error);
+      });
   }, []);
 
   return (
