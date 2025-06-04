@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "../../styles/map/mapItem.module.css";
 import axios from "axios";
 
 function MapItem({ shopId }) {
   const apiKey = "7VCEB37-69B4CKZ-QV2674N-BTZTWXE";
   const [shops, setShops] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (shopId) {
@@ -35,6 +37,11 @@ function MapItem({ shopId }) {
     }
   }, [shopId]);
 
+  const handleClick = (id) => {
+    navigate(`/RestaurantPage/${id}`);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   if (shops.length === 0) {
     return <div>가게 정보를 불러오는 중입니다...</div>;
   }
@@ -42,7 +49,12 @@ function MapItem({ shopId }) {
   return (
     <div className={styles.container}>
       {shops.map((shop, index) => (
-        <div className={styles.infoContainer} key={index}>
+        <div
+          className={styles.infoContainer}
+          key={index}
+          onClick={() => handleClick(shop.id)}
+          style={{ cursor: "pointer" }}
+        >
           <div className={styles.restaurantInfo}>
             <div className={styles.restaurantName}>
               <div>{shop.shop_name}</div>
