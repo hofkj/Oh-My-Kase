@@ -1,18 +1,47 @@
 import React, { useState } from "react";
 import styles from "../../styles/home/restaurant.module.css";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
-function Restaurant({ name, rating, location }) {
-  const [isBookmarked, setIsBookmarked] = useState(false);
+function Restaurant({
+  id,
+  name,
+  rating,
+  location,
+  initialBookmarked = false,
+  deletable = false,
+  onDelete,
+}) {
+  const [isBookmarked, setIsBookmarked] = useState(initialBookmarked);
+  const navigate = useNavigate();
+  const apiKey = "7VCEB37-69B4CKZ-QV2674N-BTZTWXE";
 
-  const toggleBookmark = (e) => {
-    e.stopPropagation(); // 페이지 이동 막기
-    setIsBookmarked((prevState) => !prevState);
+  const toggleBookmark = async (e) => {
+    e.stopPropagation();
+
+    try {
+      if (isBookmarked) {
+        await axios.delete(
+          `http://localhost:3000/api/bookmark/delete/${apiKey}/${id}`,
+          { withCredentials: true }
+        );
+        setIsBookmarked(false);
+        if (deletable && onDelete) onDelete(id);
+      } else {
+        await axios.post(
+          `http://localhost:3000/api/bookmark/add/${apiKey}/${id}`,
+          {},
+          { withCredentials: true }
+        );
+        setIsBookmarked(true);
+      }
+    } catch (err) {
+      console.error("북마크 처리 중 오류:", err);
+    }
   };
 
-  const navigate = useNavigate();
   const handleClick = () => {
-    navigate("/RestaurantPage");
+    navigate(`/RestaurantPage/${id}`);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -36,10 +65,13 @@ function Restaurant({ name, rating, location }) {
             style={{ cursor: "pointer" }}
           />
         </div>
-
         <div className={styles.restaurant_info}>
           <div className={styles.rating}>
-            <img src="/images/icon/star.png" alt="star" className={styles.star} />
+            <img
+              src="/images/icon/star.png"
+              alt="star"
+              className={styles.star}
+            />
             <div className={styles.rating_value}>{rating}</div>
           </div>
           <div className={styles.location}>{location}</div>
