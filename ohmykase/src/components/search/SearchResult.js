@@ -10,7 +10,7 @@ function SearchResult({ data, keyword }) {
 
       <div className={styles.ResultOmakaseContainer}>
         {data.map((restaurant, index) => (
-          <Link to="/RestaurantPage" key={index}>
+          <Link to="/RestaurantPage" state={{ restaurant }}>
             <ResultOmakase restaurant={restaurant} />
           </Link>
         ))}
