@@ -2,20 +2,20 @@ import React from "react";
 import styles from "../../styles/common/TwoBottomButton.module.css";
 import { useNavigate } from "react-router-dom";
 
-function TwoBottomButton({ back, next, navigateToBack, navigateToNext }) {
+function TwoBottomButton({ back, next, navigateToBack, navigateToNext, onNextClick }) {
   const navigate = useNavigate();
 
-  // 이전 버튼 클릭 시 처리
   const handleBackClick = () => {
     if (navigateToBack) {
-      navigate(navigateToBack); // navigateToBack으로 이동
+      navigate(navigateToBack);
     }
   };
 
-  // 다음 버튼 클릭 시 처리
   const handleNextClick = () => {
-    if (navigateToNext) {
-      navigate(navigateToNext); // navigateToNext로 이동
+    if (onNextClick) {
+      onNextClick();
+    } else if (navigateToNext) {
+      navigate(navigateToNext); 
     }
   };
 
