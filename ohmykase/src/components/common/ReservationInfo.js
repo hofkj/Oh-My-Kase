@@ -1,11 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import styles from "../../styles/common/reservationInfo.module.css";
 
-function ReservationInfo(props) {
+const apiKey = "7VCEB37-69B4CKZ-QV2674N-BTZTWXE";
+
+function ReservationInfo({ reservationId }) {
+  const [infoText, setInfoText] = useState("예약 정보를 불러오는 중입니다...");
+
+useEffect(() => {
+  console.log("넘어온 reservationId:", reservationId);
+  if (!reservationId) return;
+
+    axios
+      .get(`http://localhost:3000/api/reservation/info/${apiKey}/${reservationId}`)
+      .then((res) => {
+        const { date, time, people_num } = res.data;
+        const text = `${date} | ${time} | ${people_num}`;
+        setInfoText(text);
+      })
+      .catch((err) => {
+        console.error("예약 정보 불러오기 실패:", err);
+        setInfoText("예약 정보를 불러오지 못했습니다.");
+      });
+  }, [reservationId]);
+
   return (
     <div className={styles.container}>
       <div className={styles.info}>예약 정보</div>
-      <div className={styles.date}>2025.03.17 (월) | 오전 11시 | 3명</div>
+      <div className={styles.date}>{infoText}</div>
     </div>
   );
 }
