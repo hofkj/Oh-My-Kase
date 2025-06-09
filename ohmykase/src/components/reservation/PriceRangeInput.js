@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 import styles from "../../styles/reservation/PriceRangeInput.module.css"; 
 
-function PriceRangeInput({ label }) {
-  const [minPrice, setMinPrice] = useState("");
-  const [maxPrice, setMaxPrice] = useState("");
-
+function PriceRangeInput({ label, minPrice, maxPrice, setMinPrice, setMaxPrice }) {
   const handleMinPriceChange = (e) => {
     setMinPrice(e.target.value);
   };
@@ -34,5 +31,6 @@ function PriceRangeInput({ label }) {
     </div>
   );
 }
+
 
 export default PriceRangeInput;
