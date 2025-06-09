@@ -1,19 +1,59 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import TitleHeaderBar from "../components/common/TitleHeaderBar";
 import Progress from "../components/common/Progress";
 import ReservationInfo from "../components/common/ReservationInfo";
 import AllergyInput from "../components/common/AllergyInput";
-import { useNavigate } from "react-router-dom"; // useNavigate를 사용하여 라우팅 처리
-
-import styles from "../styles/pages/reservationUserInfoPage.module.css";
 import TwoBottomButton from "../components/common/TwoBottomButton";
+import { useNavigate, useLocation } from "react-router-dom";
+import axios from "axios";
+import styles from "../styles/pages/reservationUserInfoPage.module.css";
+
+const apiKey = "7VCEB37-69B4CKZ-QV2674N-BTZTWXE";
 
 function ReservationUserInfoPage() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const reservationId = location.state?.reservationId;
 
-  // 이전 버튼 클릭 시 RestaurantPage로 이동하는 함수
+  const [peopleNum, setPeopleNum] = useState(0);
+  const [allergyLists, setAllergyLists] = useState([]);
+
+  useEffect(() => {
+    if (!reservationId) return;
+
+    axios
+      .get(`http://localhost:3000/api/reservation/info/${apiKey}/${reservationId}`)
+      .then((res) => {
+        const { people_num } = res.data;
+        const number = parseInt(people_num.replace("명", ""));
+        setPeopleNum(number);
+        setAllergyLists(Array(number).fill([]));
+      })
+      .catch((err) => {
+        console.error("인원 수 불러오기 실패:", err);
+      });
+  }, [reservationId]);
+
   const handleArrowClick = () => {
-    navigate("/RestaurantPage");
+    navigate("/ReservationPage");
+  };
+
+  const handleNextClick = async () => {
+    const formatted = allergyLists.map(
+      (list) => `[${list.join(", ")}]`
+    ).join("");
+
+    try {
+      await axios.post(
+        `http://localhost:3000/api/reservation/step3/${apiKey}/${reservationId}`,
+        { input_allergy: formatted },
+        { withCredentials: true }
+      );
+      navigate("/CompletionPage");
+    } catch (err) {
+      console.error("알레르기 정보 저장 실패:", err);
+      alert("알레르기 정보를 저장하는 데 실패했습니다.");
+    }
   };
 
   return (
@@ -21,22 +61,29 @@ function ReservationUserInfoPage() {
       <TitleHeaderBar title="예약하기" onArrowClick={handleArrowClick} />
       <div className={styles.info}>
         <Progress imgSrc="/images/icon/progress_red.png" />
-        <ReservationInfo />
+        <ReservationInfo reservationId={reservationId} />
       </div>
 
       <div className={styles.inputContainer}>
-        <AllergyInput title="본인의 알레르기 및 불호 음식을 적어주세요" />
-        <AllergyInput title="본인의 알레르기 및 불호 음식을 적어주세요" />
-        <AllergyInput title="본인의 알레르기 및 불호 음식을 적어주세요" />
-        {/* <AllergyInput title="본인의 알레르기 및 불호 음식을 적어주세요" /> */}
-        {/* <AllergyInput title="본인의 알레르기 및 불호 음식을 적어주세요" /> */}
+        {Array.from({ length: peopleNum }).map((_, index) => (
+          <AllergyInput
+            key={index}
+            title={`예약자 ${index + 1}의 알레르기 및 불호 음식`}
+            allergyList={allergyLists[index] || []}
+            setAllergyList={(newList) => {
+              const updatedLists = [...allergyLists];
+              updatedLists[index] = newList;
+              setAllergyLists(updatedLists);
+            }}
+          />
+        ))}
       </div>
 
       <TwoBottomButton
         back="이전"
         next="다음"
-        navigateToBack="/ReservationPage" 
-        navigateToNext="/CompletionPage" // 다음 페이지 주소 넣기
+        navigateToBack="/ReservationPage"
+        onNextClick={handleNextClick}
       />
     </div>
   );
