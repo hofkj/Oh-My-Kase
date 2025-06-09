@@ -7,9 +7,9 @@ function BottomButton({ text, navigateTo, onClick }) {
 
   const handleClick = () => {
     if (onClick) {
-      onClick(); // onClick이 존재하면 호출
+      onClick(); 
     } else if (navigateTo) {
-      navigate(navigateTo); // navigateTo가 있을 경우 페이지 이동
+      navigate(navigateTo); 
     }
   };
 
