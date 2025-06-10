@@ -37,7 +37,7 @@ input {
   outline: none;
 }
 
-.input input:focus {
+.input:focus-within {
   border: 1px solid var(--MAIN-02, #82152f);
 }
 
