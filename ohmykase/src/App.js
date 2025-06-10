@@ -69,6 +69,8 @@ const Main = () => {
         <Route path="EditReviewPage" element={<EditReviewPage />} />
         <Route path="MorePage" element={<MorePage />} />
         <Route path="/RestaurantPage/:id" element={<RestaurantPage />} />
+
+        {/* 테스트 */}
       </Routes>
     </div>
   );
