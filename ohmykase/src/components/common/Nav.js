@@ -17,7 +17,7 @@ function Nav(props) {
           <img src={props.home} alt="home" />홈
         </div>
       </div>
-      <div className={styles.nav_item} onClick={() => handleClick("/TestPage")}>
+      <div className={styles.nav_item} onClick={() => handleClick("/MapPage")}>
         <div className={styles.map} style={{ color: props.mapColor }}>
           <img src={props.map} alt="map" />
           지도

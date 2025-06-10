@@ -2,15 +2,22 @@ import React, { useState, useEffect } from "react";
 import styles from "../../styles/restaurant/storeInfo.module.css";
 import { Link } from "react-router-dom";
 
-export default function StoreInfo({ address, mapLink, time, phone }) {
+export default function StoreInfo({
+  address,
+  mapLink,
+  time,
+  phone,
+  shopTime,
+  shopId,
+}) {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [showContent, setShowContent] = useState(false); // 내용 표시 상태 추가
+  const [showContent, setShowContent] = useState(false);
 
   useEffect(() => {
     if (isExpanded) {
-      setShowContent(true); // 펼칠 때 즉시 표시
+      setShowContent(true);
     } else {
-      setTimeout(() => setShowContent(false), 300); // 닫힐 때 애니메이션 후 숨김
+      setTimeout(() => setShowContent(false), 300);
     }
   }, [isExpanded]);
 
@@ -18,10 +25,14 @@ export default function StoreInfo({ address, mapLink, time, phone }) {
     <div className={styles.storeInfo}>
       <div className={styles.storeRow}>
         <span className={styles.map}>
-          <img src="/images/icon/map.png" />
+          <img src="/images/icon/map.png" alt="map" />
         </span>
         <span className={styles.address}>{address}</span>
-        <Link to="/TestPage" style={{ textDecoration: "none" }}>
+        <Link
+          to="/MapPage"
+          state={{ mapSrc: mapLink, shopId }} // ✅ 수정됨
+          style={{ textDecoration: "none" }}
+        >
           <div className={styles.mapLink}>지도 보기</div>
         </Link>
       </div>
@@ -31,7 +42,7 @@ export default function StoreInfo({ address, mapLink, time, phone }) {
         onClick={() => setIsExpanded(!isExpanded)}
       >
         <span className={styles.time_img}>
-          <img src="/images/icon/time.png" />
+          <img src="/images/icon/time.png" alt="clock" />
         </span>
         <span className={styles.time}>
           {time} <span className={styles.toggle}>{isExpanded ? "▲" : "▼"}</span>
@@ -41,26 +52,22 @@ export default function StoreInfo({ address, mapLink, time, phone }) {
       <div
         className={`${styles.expandedTime} ${isExpanded ? styles.open : ""}`}
         style={{
-          maxHeight: isExpanded ? "160px" : "0",
+          maxHeight: isExpanded ? "300px" : "0",
           opacity: isExpanded ? 1 : 0,
         }}
       >
-        {showContent && (
-          <>
-            <div>월 11:00 - 23:00</div>
-            <div>화 11:00 - 23:00</div>
-            <div>수 휴무</div>
-            <div>목 11:00 - 23:00</div>
-            <div>금 11:00 - 23:00</div>
-            <div>토 11:00 - 23:00</div>
-            <div>일 12:00 - 24:00</div>
-          </>
-        )}
+        {showContent &&
+          shopTime &&
+          Object.entries(shopTime).map(([day, hours]) => (
+            <div key={day}>
+              {day} {hours}
+            </div>
+          ))}
       </div>
 
       <div className={styles.storeRow}>
         <span className={styles.tel}>
-          <img src="/images/icon/tel.png" />
+          <img src="/images/icon/tel.png" alt="전화" />
         </span>
         <span className={styles.phone}>{phone}</span>
       </div>

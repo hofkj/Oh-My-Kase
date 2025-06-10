@@ -1,3 +1,4 @@
+// ✅ EditProfilePage.js
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -14,6 +15,8 @@ function EditProfilePage() {
   const [name, setName] = useState("");
   const [nickname, setNickname] = useState("");
   const [allergyList, setAllergyList] = useState([]);
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const apiKey = "7VCEB37-69B4CKZ-QV2674N-BTZTWXE";
 
@@ -25,7 +28,9 @@ function EditProfilePage() {
       .then((res) => {
         setName(res.data.user_name);
         setNickname(res.data.user_nickname);
-        const allergies = res.data.user_allergy ? res.data.user_allergy.split(",") : [];
+        const allergies = res.data.user_allergy
+          ? res.data.user_allergy.split(",")
+          : [];
         setAllergyList(allergies);
       })
       .catch((err) => {
@@ -54,13 +59,42 @@ function EditProfilePage() {
     }
   };
 
-  const handleArrowClick = () => {
-    navigate("/MyPage");
+  const handleLogout = async () => {
+    try {
+      await axios.post(
+        `http://localhost:3000/api/user/logout/${apiKey}`,
+        {},
+        { withCredentials: true }
+      );
+      alert("로그아웃되었습니다");
+      setShowLogoutModal(false);
+      navigate("/LoginPage");
+    } catch (err) {
+      console.error("로그아웃 실패:", err);
+      alert("로그아웃에 실패했습니다.");
+    }
+  };
+
+  const handleDeleteAccount = async () => {
+    try {
+      await axios.delete(`http://localhost:3000/api/user/delete/${apiKey}`, {
+        withCredentials: true,
+      });
+      alert("회원 탈퇴되었습니다");
+      setShowDeleteModal(false);
+      navigate("/LoginPage");
+    } catch (err) {
+      console.error("회원 탈퇴 실패:", err);
+      alert("회원 탈퇴에 실패했습니다.");
+    }
   };
 
   return (
     <div className={styles.container}>
-      <TitleHeaderBar title="프로필 수정" onArrowClick={handleArrowClick} />
+      <TitleHeaderBar
+        title="프로필 수정"
+        onArrowClick={() => navigate("/MyPage")}
+      />
 
       <div className={styles.inputContainer}>
         <InputContainer
@@ -80,7 +114,77 @@ function EditProfilePage() {
         />
       </div>
 
+      <div className={styles.actionButtonWrapper}>
+        <button
+          className={styles.grayButton}
+          onClick={() => setShowLogoutModal(true)}
+        >
+          로그아웃
+        </button>
+        <button
+          className={styles.redButton}
+          onClick={() => setShowDeleteModal(true)}
+        >
+          회원탈퇴
+        </button>
+      </div>
+
       <BottomButton text="확인" onClick={handleSubmit} />
+
+      {showLogoutModal && (
+        <div className={styles.modalOverlay}>
+          <div className={styles.modal}>
+            <p>🚨</p>
+            <p>로그아웃 하시겠습니까?</p>
+            <span>
+              로그아웃 시 예약한 식당에 대한 정보를
+              <br /> 받지 못하게 됩니다.
+            </span>
+            <div className={styles.modalButtonGroup}>
+              <button className={styles.redButton} onClick={handleLogout}>
+                로그아웃하기
+              </button>
+              <button
+                className={styles.grayButton}
+                style={{
+                  backgroundColor: "#fff",
+                  border: "0.7px solid #C1C1C1",
+                }}
+                onClick={() => setShowLogoutModal(false)}
+              >
+                취소
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showDeleteModal && (
+        <div className={styles.modalOverlay}>
+          <div className={styles.modal}>
+            <p>🚨 가입하신 계정을 탈퇴하시겠습니까?</p>
+            <span>
+              탈퇴 시 예약 정보들이 사라지게 되며,
+              <br />
+              모든 데이터는 복구가 불가능합니다.
+            </span>
+            <div className={styles.modalButtonGroup}>
+              <button
+                className={styles.redButton}
+                onClick={handleDeleteAccount}
+              >
+                탈퇴하기
+              </button>
+              <button
+                className={styles.grayButton}
+                onClick={() => setShowDeleteModal(false)}
+              >
+                취소
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

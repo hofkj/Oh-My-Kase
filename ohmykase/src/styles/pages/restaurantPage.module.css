@@ -5,9 +5,8 @@
     /* margin-bottom: 200px; */
     scrollbar-width: none;
     overflow-x: hidden;
-    height: 90%;
+  height: 93%;
 }
-
 
 .calendarWrapper {
     position: fixed;
@@ -31,8 +30,8 @@
   .calendarOverlay {
     position: absolute;
     background: rgba(19, 19, 19, 0.4);
-    width: 373px;
-    height: 812px;
+  width: 100%;
+  height: 100%;
     margin: 0 auto;
     left: 0;
     right: 0;
@@ -44,15 +43,17 @@
     border-top-left-radius: 40px;
     border-top-right-radius: 40px;
     padding: 16px;
-    width: 344px;
+  width: 376px;
+  height: 581px;
+  box-sizing: border-box;
     z-index: 10;
     animation: slideUp 0.3s ease-out;
     display: flex;
     justify-content: center;
     align-items: center;
+  overflow: hidden;
   }
   
-  /*  slideUp: 위로 올라올 때 */
   @keyframes slideUp {
     from {
       transform: translateY(100%);
@@ -62,7 +63,6 @@
     }
   }
   
-  /* ✅ slideDown: 아래로 내려갈 때 */
   .calendarWrapper.hide .calendarContent {
     animation: slideDown 0.3s ease-in;
   }

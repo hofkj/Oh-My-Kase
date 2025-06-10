@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import ResultOmakase from "./ResultOmakase";
 import styles from "../../styles/pages/searchPage.module.css";
 import { Link } from "react-router-dom";
@@ -10,7 +10,12 @@ function SearchResult({ data, keyword }) {
 
       <div className={styles.ResultOmakaseContainer}>
         {data.map((restaurant, index) => (
-          <Link to="/RestaurantPage" state={{ restaurant }}>
+          <Link
+            key={index}
+            to={`/RestaurantPage/${restaurant.id}`}
+            state={{ restaurant }}
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
             <ResultOmakase restaurant={restaurant} />
           </Link>
         ))}

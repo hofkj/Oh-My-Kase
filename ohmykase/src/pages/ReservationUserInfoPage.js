@@ -22,7 +22,9 @@ function ReservationUserInfoPage() {
     if (!reservationId) return;
 
     axios
-      .get(`http://localhost:3000/api/reservation/info/${apiKey}/${reservationId}`)
+      .get(
+        `http://localhost:3000/api/reservation/info/${apiKey}/${reservationId}`
+      )
       .then((res) => {
         const { people_num } = res.data;
         const number = parseInt(people_num.replace("명", ""));
@@ -39,9 +41,9 @@ function ReservationUserInfoPage() {
   };
 
   const handleNextClick = async () => {
-    const formatted = allergyLists.map(
-      (list) => `[${list.join(", ")}]`
-    ).join("");
+    const formatted = allergyLists
+      .map((list) => `[${list.join(", ")}]`)
+      .join("");
 
     try {
       await axios.post(
@@ -84,6 +86,7 @@ function ReservationUserInfoPage() {
         next="다음"
         navigateToBack="/ReservationPage"
         onNextClick={handleNextClick}
+        backState={{ reservationId }} 
       />
     </div>
   );

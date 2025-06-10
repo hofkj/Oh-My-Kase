@@ -30,7 +30,7 @@ export default function MapPage() {
         ></iframe>
       </div>
 
-      <BottomSheet
+      {/* <BottomSheet
         blocking={false}
         snapPoints={({ maxHeight }) => [maxHeight * 0.9, maxHeight / 2, maxHeight * 0.2]}
         open={open}
@@ -39,7 +39,7 @@ export default function MapPage() {
         <div style={{ height: "100%", overflowY: "auto" }}>
           <MapItem shopId={shopId} />
         </div>
-      </BottomSheet>
+      </BottomSheet> */}
 
       <Nav
         home="/images/nav/home.png"

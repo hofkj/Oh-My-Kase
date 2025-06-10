@@ -1,13 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import TitleHeaderBar from "../components/common/TitleHeaderBar";
-
 import styles from "../styles/pages/StoragePage.module.css";
 import ResultOmakase from "../components/search/ResultOmakase";
 import Nav from "../components/common/Nav";
+import axios from "axios";
 
 function StoragePage() {
   const navigate = useNavigate();
+  const [restaurants, setRestaurants] = useState([]);
+  const apiKey = "7VCEB37-69B4CKZ-QV2674N-BTZTWXE";
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3000/api/bookmark/user/${apiKey}`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        const bookmarkList = res.data.bookmark_list || [];
+        setRestaurants(bookmarkList);
+      })
+      .catch((err) => {
+        console.error("북마크 목록 불러오기 실패:", err);
+      });
+  }, []);
 
   const handleArrowClick = () => {
     navigate("/MyPage");
@@ -17,7 +33,11 @@ function StoragePage() {
     <div className={styles.container}>
       <TitleHeaderBar title="저장한 오마카세" onArrowClick={handleArrowClick} />
 
-      <div>{/* <ResultOmakase/> */}</div>
+      <div className={styles.omakaseContainer}>
+        {restaurants.map((restaurant, index) => (
+          <ResultOmakase key={index} restaurant={restaurant} />
+        ))}
+      </div>
 
       <Nav
         home="/images/nav/home.png"

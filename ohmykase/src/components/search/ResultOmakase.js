@@ -1,17 +1,17 @@
 import React from "react";
-import styles from "../../styles/search/ResultOmakase.module.css";
 import { useNavigate } from "react-router-dom";
+import styles from "../../styles/search/ResultOmakase.module.css";
 
 function ResultOmakase({ restaurant }) {
   const navigate = useNavigate();
 
   const handleClick = () => {
     navigate(`/RestaurantPage/${restaurant.id}`);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: "smooth" }); // 선택사항: 페이지 이동 시 스크롤 맨 위로
   };
 
   return (
-    <div className={styles.container} onClick={handleClick} style={{ cursor: "pointer" }}>
+    <div className={styles.container} style={{ cursor: "pointer" }} onClick={handleClick}>
       <div className={styles.restaurantCard}>
         <img
           src={

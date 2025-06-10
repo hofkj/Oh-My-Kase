@@ -2,12 +2,12 @@ import React from "react";
 import styles from "../../styles/common/TwoBottomButton.module.css";
 import { useNavigate } from "react-router-dom";
 
-function TwoBottomButton({ back, next, navigateToBack, navigateToNext, onNextClick }) {
+function TwoBottomButton({ back, next, navigateToBack, navigateToNext, onNextClick, backState }) {
   const navigate = useNavigate();
 
   const handleBackClick = () => {
     if (navigateToBack) {
-      navigate(navigateToBack);
+      navigate(navigateToBack, { state: backState }); 
     }
   };
 
