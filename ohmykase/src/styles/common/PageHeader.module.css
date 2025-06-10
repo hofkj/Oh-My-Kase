@@ -6,7 +6,8 @@
     width: 375px;
     height: 64px;
     box-sizing: border-box;
-    margin-top: 46px;       /* 임의의 숫자 추후 수정*/
+    /* margin-top: 46px;     */
+       /* 임의의 숫자 추후 수정*/
 }
 
 .text {

@@ -8,10 +8,10 @@ import TwoBottomButton from "../components/common/TwoBottomButton";
 function PasswordPage() {
   const navigate = useNavigate();
 
-  const [password, setPassword] = useState(""); // 비밀번호 상태 관리
-  const [confirmPassword, setConfirmPassword] = useState(""); // 비밀번호 확인 상태
-  const [showPassword, setShowPassword] = useState(false); // 비밀번호 표시 상태
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false); // 비밀번호 확인 표시 상태
+  const [password, setPassword] = useState(""); 
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false); 
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false); 
 
   const handleArrowClick = () => {
     navigate("/LoginPage");
@@ -25,12 +25,10 @@ function PasswordPage() {
     setConfirmPassword(e.target.value);
   };
 
-  // 비밀번호 표시/숨기기 토글
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
-  // 비밀번호 확인 표시/숨기기 토글
   const toggleConfirmPasswordVisibility = () => {
     setShowConfirmPassword(!showConfirmPassword);
   };
@@ -90,7 +88,7 @@ function PasswordPage() {
         back="이전"
         next="다음"
         navigateToBack="/SignupPage"
-        navigateToNext="/" // 다음 페이지 주소 넣기
+        navigateToNext="/" 
       />
     </div>
   );

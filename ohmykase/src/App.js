@@ -1,12 +1,16 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 
-
-import './App.css';
-import HomePage from './pages/HomePage'; 
-import RestaurantPage from './pages/RestaurantPage';
-import SearchPage from './pages/SearchPage';
-import ReservationPage from './pages/ReservationPage';
+import "./App.css";
+import HomePage from "./pages/HomePage";
+import RestaurantPage from "./pages/RestaurantPage";
+import SearchPage from "./pages/SearchPage";
+import ReservationPage from "./pages/ReservationPage";
 import ReservationUserInfoPage from "./pages/ReservationUserInfoPage";
 import CompletionPage from "./pages/CompletionPage";
 import MyPage from "./pages/MyPage";
@@ -18,9 +22,13 @@ import SignupPage from "./pages/SignupPage";
 import PasswordPage from "./pages/PasswordPage";
 import ReviewPage from "./pages/ReviewPage";
 import NavReviewPage from "./pages/NavReviewPage";
-import TestPage from "./pages/TestPage";
+import MapPage from "./pages/MapPage";
 import EditReviewPage from "./pages/EditReviewPage";
 import MorePage from "./pages/MorePage";
+
+import axios from "axios";
+
+axios.defaults.withCredentials = true;
 
 function App() {
   return (
@@ -28,7 +36,7 @@ function App() {
       <Main />
     </Router>
   );
-};
+}
 
 const Main = () => {
   return (
@@ -38,13 +46,15 @@ const Main = () => {
       {/* <SearchPage/> */}
       {/* <ReservationPage/> */}
 
-
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/RestaurantPage" element={<RestaurantPage />} />
         <Route path="/SearchPage" element={<SearchPage />} />
         <Route path="/ReservationPage" element={<ReservationPage />} />
-        <Route path="/ReservationUserInfoPage" element={<ReservationUserInfoPage />} />
+        <Route
+          path="/ReservationUserInfoPage"
+          element={<ReservationUserInfoPage />}
+        />
         <Route path="/CompletionPage" element={<CompletionPage />} />
         <Route path="/MyPage" element={<MyPage />} />
         <Route path="/EditProfilePage" element={<EditProfilePage />} />
@@ -55,12 +65,13 @@ const Main = () => {
         <Route path="/PasswordPage" element={<PasswordPage />} />
         <Route path="ReviewPage" element={<ReviewPage />} />
         <Route path="NavReviewPage" element={<NavReviewPage />} />
-        <Route path="TestPage" element={<TestPage />} />
+        <Route path="MapPage" element={<MapPage />} />
         <Route path="EditReviewPage" element={<EditReviewPage />} />
         <Route path="MorePage" element={<MorePage />} />
+        <Route path="/RestaurantPage/:id" element={<RestaurantPage />} />
       </Routes>
     </div>
   );
-}
+};
 
 export default App;
