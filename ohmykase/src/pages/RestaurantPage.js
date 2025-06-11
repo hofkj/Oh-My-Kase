@@ -18,16 +18,18 @@ export default function RestaurantPage() {
   const navigate = useNavigate();
   const { id } = useParams();
   const [restaurantData, setRestaurantData] = useState(null);
+  const [reviews, setReviews] = useState([]);
   const [activeTab, setActiveTab] = useState("store");
   const [showCalendar, setShowCalendar] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const apiKey = "7VCEB37-69B4CKZ-QV2674N-BTZTWXE";
 
+  // 1) 가게 정보 불러오기
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/api/shop/${apiKey}/${id}`)
+      .get(`http://localhost:3000/api/shop/${apiKey}/${id}`, { withCredentials: true })
       .then((res) => {
-        const shop = res.data[0];
+        const shop = Array.isArray(res.data) ? res.data[0] : res.data;
         if (!shop) throw new Error("Shop not found");
         const tags = shop.tag_names ? shop.tag_names.split(",") : [];
         setRestaurantData({ ...shop, tags });
@@ -38,29 +40,46 @@ export default function RestaurantPage() {
       });
   }, [id, navigate]);
 
-  if (!restaurantData) {
-    return (
-      <div className={styles.notFound}>식당 정보를 불러오는 중입니다...</div>
-    );
-  }
+  // 2) 리뷰 탭으로 전환될 때만 호출
+  useEffect(() => {
+    if (activeTab === "review" && reviews.length === 0) {
+      axios
+        .get(`http://localhost:3000/api/shop/reviews/${apiKey}/${id}`, { withCredentials: true })
+        .then((res) => {
+          console.log("리뷰 API 응답:", res.data);
+          const list = res.data.map((r) => ({
+            username: r.user,
+            userProfile: r.user_profile || "/images/restaurant/profile_img.png",
+            rating: r.rating,
+            timeAgo: r.date,
+            text: r.writing,
+            images: r.images
+              ? Array.isArray(r.images)
+                ? r.images
+                : r.images.split(",")
+              : [],
+          }));
+          setReviews(list);
+        })
+        .catch((err) => {
+          console.error("리뷰 불러오기 실패:", err);
+        });
+    }
+  }, [activeTab, id, reviews.length]);
 
-  const reviews = [
-    {
-      username: "여행다니는멋진나",
-      userProfile: "/images/restaurant/profile_img.png",
-      rating: 4.5,
-      timeAgo: "3분 전",
-      text: "친구들 3명과 함께 갔는데 너무 맛있게 잘 먹었어요...",
-      images: [
-        "/images/restaurant/restaurant.png",
-        "/images/restaurant/restaurant.png",
-      ],
-    },
-  ];
+  if (!restaurantData) {
+    return <div className={styles.notFound}>식당 정보를 불러오는 중입니다...</div>;
+  }
 
   return (
     <div className={styles.restaurantDetail}>
-      <RestaurantImage imageUrl={restaurantData.galleryImages?.[0]} />
+      <RestaurantImage
+        imageUrl={
+          restaurantData.shop_images
+            ? restaurantData.shop_images.split(",")[0]
+            : "/images/restaurant/restaurant.png"
+        }
+      />
 
       <RestaurantInfo
         name={restaurantData.shop_name}
@@ -85,27 +104,22 @@ export default function RestaurantPage() {
             time="운영 시간 보기"
             phone={restaurantData.shop_telnum}
             shopTime={restaurantData.shop_time}
-            shopId={restaurantData.id} 
+            shopId={restaurantData.id}
           />
-
           <ImageGallery
             images={
-              restaurantData.galleryImages || [
-                "/images/restaurant/restaurant.png",
-              ]
+              restaurantData.shop_images
+                ? restaurantData.shop_images.split(",")
+                : ["/images/restaurant/restaurant.png"]
             }
           />
         </>
       ) : (
-        <>
         <ReviewList reviews={reviews} />
-        </>
       )}
 
-      <Bottombar
-        onClickReserve={() => setShowCalendar(true)}
-        shopId={restaurantData.id}
-      />
+      <Bottombar onClickReserve={() => setShowCalendar(true)} shopId={restaurantData.id} />
+
       {(showCalendar || isAnimating) && (
         <div
           className={`${styles.calendarWrapper} ${
