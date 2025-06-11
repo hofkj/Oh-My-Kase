@@ -12,18 +12,22 @@
   justify-content: space-between;
   align-items: center;
   margin-top: 38px;
+  border-bottom: 2px solid #f9f9f9;
+  padding-bottom: 24px;
+  margin-bottom: 24px;
 }
 
 .profilePicture {
   display: flex;
   gap: 12px;
+  align-items: center;
 }
 
 .profileInfo {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
 }
 
 .userName {
@@ -65,12 +69,11 @@
 
 .reservationSection {
   width: 340px;
-  height: 250px;
-  border-top: 2px solid #f9f9f9;
+  height: 230px;
   border-bottom: 2px solid #f9f9f9;
   box-sizing: border-box;
-  padding: 24px 0;
-  margin: 24px 0;
+  padding-bottom: 24px;
+  margin-bottom: 24px;
 }
 
 .reservationTitle {
@@ -103,9 +106,9 @@
 }
 
 .img {
-    width: 77px;
-    height: 80px;
-    border-radius: 8px;
+  width: 77px;
+  height: 80px;
+  border-radius: 8px;
 }
 
 .restaurantDetails {
@@ -159,7 +162,6 @@
 
 /* 구분선 */
 
-
 /* .savedOmakaseSection {
     display: flex;
     justify-content: center;
@@ -170,36 +172,58 @@
 } */
 
 .savedOmakaseHeader {
-    width: 340px;
-    height: 20px;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 14px;
+  width: 340px;
+  height: 20px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 14px;
 }
 
 .savedOmakaseTitle {
-    color: #000;
-    font-family: Pretendard;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 20px; 
+  color: #000;
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 20px;
 }
 
 .viewMoreButton {
-    color: var(--BLACK-03, #747474);
-    font-family: Pretendard;
-    font-size: 11px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
+  color: var(--BLACK-03, #747474);
+  font-family: Pretendard;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
 }
 
 .link {
   text-decoration: none; /* 링크의 밑줄 제거 */
   color: inherit; /* 부모 색상으로 상속 */
+}
+
+.loginContainer {
+  width: 115px;
+  height: 19px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.login {
+  color: #000;
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.loginArrow {
+  width: 6px;
+  height: 12px;
 }
