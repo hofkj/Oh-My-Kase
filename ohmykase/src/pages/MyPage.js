@@ -4,7 +4,9 @@ import styles from "../styles/pages/MyPage.module.css";
 import PageHeader from "../components/common/PageHeader";
 import Nav from "../components/common/Nav";
 import { Link, useNavigate } from "react-router-dom";
-import BookmarkSwiper from "../my/BookmarkSwiper";
+import BookmarkSwiper from "../components/my/BookmarkSwiper";
+
+const apiKey = "7VCEB37-69B4CKZ-QV2674N-BTZTWXE";
 
 function MyPage() {
   const navigate = useNavigate();
@@ -13,29 +15,57 @@ function MyPage() {
     user_name: "",
     user_nickname: "",
   });
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [reviewInfo, setReviewInfo] = useState(null);
 
   // 사용자 정보 가져오기
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:3000/api/user/info/7VCEB37-69B4CKZ-QV2674N-BTZTWXE",
-          {
-          withCredentials: true, // 세션 쿠키를 포함시킴
-          }
+          `http://localhost:3000/api/user/info/${apiKey}`,
+          { withCredentials: true }
         );
-        setUserInfo(res.data);
+
+        if (res.data) {
+          setUserInfo(res.data);
+          setIsLoggedIn(true);
+        } else {
+          setIsLoggedIn(false);
+        }
       } catch (err) {
         console.error("회원 정보 불러오기 실패", err);
+        setIsLoggedIn(false);
       }
     };
 
     fetchUserInfo();
   }, []);
 
+  // 리뷰 작성 가능 정보 불러오기
+  useEffect(() => {
+    const fetchReviewInfo = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:3000/api/review/can_write/${apiKey}`,
+          { withCredentials: true }
+        );
+        setReviewInfo(res.data);
+      } catch (err) {
+        console.log("작성 가능한 리뷰 없음 또는 에러", err);
+      }
+    };
+
+    fetchReviewInfo();
+  }, []);
+
   const handleClick = (path) => {
     navigate(path);
     window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleLoginClick = () => {
+    navigate("/LoginPage");
   };
 
   return (
@@ -45,10 +75,21 @@ function MyPage() {
       <div className={styles.profileSection}>
         <div className={styles.profilePicture}>
           <img src="images/icon/profile.png" alt="Profile" />
-          <div className={styles.profileInfo}>
-            <div className={styles.userName}>{userInfo.user_name}</div>
-            <div className={styles.userid}>{userInfo.user_nickname}</div>
-          </div>
+
+          {isLoggedIn ? (
+            <div className={styles.profileInfo}>
+              <div className={styles.userName}>{userInfo.user_name}</div>
+              <div className={styles.userid}>{userInfo.user_nickname}</div>
+            </div>
+          ) : (
+            <div className={styles.loginContainer} onClick={handleLoginClick}>
+              <div className={styles.login}>로그인 해주세요</div>
+              <img
+                src="images/icon/loginArrow.png"
+                className={styles.loginArrow}
+              />
+            </div>
+          )}
         </div>
         <div
           className={styles.editInfoButton}
@@ -58,33 +99,42 @@ function MyPage() {
         </div>
       </div>
 
-      <div className={styles.reservationSection}>
-        <div className={styles.reservationTitle}>
-          방문하신 "규베이 긴자 본점"은 만족하셨나요?
-        </div>
-        <div className={styles.reservationItem}>
-          <div className={styles.restaurantInfo}>
-            <img
-              src="/images/restaurant/interior3.png"
-              className={styles.img}
-            />
-            <div className={styles.restaurantDetails}>
-              <div className={styles.restaurantName}>규베이 긴자 본점</div>
-              <div className={styles.reservationDetails}>
-                2025.03.17 (월) / 오전 11시 / 3명
-              </div>
-              <div className={styles.stars}>
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <img key={i} src="/images/icon/star_gray.png" alt="Star" />
-                ))}
+      {reviewInfo && (
+        <div className={styles.reservationSection}>
+          <div className={styles.reservationTitle}>
+            방문하신 "{reviewInfo.shop_name}"은 만족하셨나요?
+          </div>
+          <div className={styles.reservationItem}>
+            <div className={styles.restaurantInfo}>
+              <img
+                src="/images/restaurant/interior3.png"
+                className={styles.img}
+              />
+              <div className={styles.restaurantDetails}>
+                <div className={styles.restaurantName}>{reviewInfo.shop_name}</div>
+                <div className={styles.reservationDetails}>
+                  {reviewInfo.reservation_info}
+                </div>
+                <div className={styles.stars}>
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <img
+                      key={i}
+                      src="/images/icon/star_gray.png"
+                      alt="Star"
+                    />
+                  ))}
+                </div>
               </div>
             </div>
+            <Link
+              to={`/ReviewPage?id=${reviewInfo.reservation_id}`}
+              className={styles.link}
+            >
+              <div className={styles.reviewButton}>리뷰 쓰러가기</div>
+            </Link>
           </div>
-          <Link to="/ReviewPage" className={styles.link}>
-            <div className={styles.reviewButton}>리뷰 쓰러가기</div>
-          </Link>
         </div>
-      </div>
+      )}
 
       <div className={styles.savedOmakaseHeader}>
         <div className={styles.savedOmakaseTitle}>저장한 오마카세</div>
@@ -97,6 +147,7 @@ function MyPage() {
       </div>
 
       <BookmarkSwiper />
+
       <Nav
         home="/images/nav/home.png"
         map="/images/nav/map.png"
