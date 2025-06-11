@@ -20,11 +20,10 @@
 
 .restaurant_name {
     display: flex;
-    gap: 33px;
+    justify-content: space-between;
 }
 
 .name {
-    width: 85px;
     color: var(--BLACK-01, #131313);
     font-family: Pretendard;
     font-size: 12px;
