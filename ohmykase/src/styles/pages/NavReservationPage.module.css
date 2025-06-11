@@ -7,7 +7,14 @@
   overflow-y: auto;
   box-sizing: border-box;
   scrollbar-width: none;
-  padding-top: 20px;
+  /* padding-top: 20px; */
+}
+
+.tabWrapper {
+  position: sticky;
+  top: 0;
+  background-color: #ffffff;
+  z-index: 1000;
 }
 
 .tabContainer {
