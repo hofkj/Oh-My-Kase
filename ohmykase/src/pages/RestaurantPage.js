@@ -85,7 +85,7 @@ export default function RestaurantPage() {
             time="운영 시간 보기"
             phone={restaurantData.shop_telnum}
             shopTime={restaurantData.shop_time}
-            shopId={restaurantData.id} // ✅ 이거 추가!
+            shopId={restaurantData.id} 
           />
 
           <ImageGallery
@@ -104,7 +104,7 @@ export default function RestaurantPage() {
 
       <Bottombar
         onClickReserve={() => setShowCalendar(true)}
-        shopId={restaurantData.id} // ✅ 이거 추가!
+        shopId={restaurantData.id}
       />
       {(showCalendar || isAnimating) && (
         <div

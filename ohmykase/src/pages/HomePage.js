@@ -1,8 +1,7 @@
-// ✅ 수정된 HomePage.js
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Header from "../components/home/Header";
 import Benner from "../components/home/Benner";
+import Header from "../components/home/Header";
 import LocationDropdown from "../components/home/LocationDropdown";
 import MenuDropdown from "../components/home/MenuDropdown";
 import Omakase from "../components/home/Omakase";
