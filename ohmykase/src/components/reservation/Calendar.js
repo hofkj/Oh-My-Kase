@@ -1,3 +1,4 @@
+// src/components/reservation/Calendar.js
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../../styles/reservation/calendar.module.css";
@@ -27,9 +28,9 @@ const Calendar = ({ shopId }) => {
     const lastDate = new Date(year, month + 1, 0).getDate();
     const firstDay = new Date(year, month, 1).getDay();
     const prevMonthLastDate = new Date(year, month, 0).getDate();
-    const nextMonthStartDay = (firstDay + lastDate) % 7;
 
-    let calendarDays = [];
+    // 이전 달 tail
+    const calendarDays = [];
     for (
       let i = prevMonthLastDate - firstDay + 1;
       i <= prevMonthLastDate;
@@ -37,12 +38,14 @@ const Calendar = ({ shopId }) => {
     ) {
       calendarDays.push({ date: i, isOtherMonth: true });
     }
+    // 이번 달
     for (let i = 1; i <= lastDate; i++) {
       calendarDays.push({ date: i, isOtherMonth: false });
     }
-    const remainingDays = 7 - (calendarDays.length % 7);
-    for (let i = 1; i <= remainingDays && calendarDays.length % 7 !== 0; i++) {
-      calendarDays.push({ date: i, isOtherMonth: true });
+    // 다음 달 head
+    while (calendarDays.length % 7 !== 0) {
+      const nextDay = calendarDays.length % 7 + 1;
+      calendarDays.push({ date: nextDay, isOtherMonth: true });
     }
 
     setDaysInMonth(calendarDays);
@@ -53,10 +56,13 @@ const Calendar = ({ shopId }) => {
     const newDate = new Date(currentDate);
     newDate.setMonth(newDate.getMonth() + diff);
     setCurrentDate(newDate);
+    setActiveDate(null);
+    setActiveTime(null);
   };
 
-  const handleDateClick = (date) => {
-    setActiveDate(date);
+  const handleDateClick = (day) => {
+    setActiveDate(day);
+    setActiveTime(null);
   };
 
   const handleNumberClick = (num) => {
@@ -71,10 +77,8 @@ const Calendar = ({ shopId }) => {
 
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth() + 1;
-    const day = activeDate;
-
     const formattedDate = `${year}-${String(month).padStart(2, "0")}-${String(
-      day
+      activeDate
     ).padStart(2, "0")}`;
 
     try {
@@ -88,9 +92,7 @@ const Calendar = ({ shopId }) => {
         { withCredentials: true }
       );
       const reservationId = res.data.reservation_id;
-      navigate(`/ReservationPage`, {
-        state: { reservationId },
-      });
+      navigate(`/ReservationPage`, { state: { reservationId } });
     } catch (err) {
       console.error("예약 실패:", err);
       alert("예약 저장에 실패했습니다.");
@@ -101,36 +103,50 @@ const Calendar = ({ shopId }) => {
     <div className={styles.container}>
       <div className={styles.calendar}>
         <div className={styles.calendarHeader}>
-          <button className={styles.prevMonth} onClick={() => changeMonth(-1)}>
+          <button
+            className={styles.prevMonth}
+            onClick={() => changeMonth(-1)}
+          >
             <img src="../../images/icon/arrow_L.png" alt="이전 달" />
           </button>
           <div className={styles.title}>{monthName}</div>
-          <button className={styles.nextMonth} onClick={() => changeMonth(1)}>
+          <button
+            className={styles.nextMonth}
+            onClick={() => changeMonth(1)}
+          >
             <img src="../../images/icon/arrow_R.png" alt="다음 달" />
           </button>
         </div>
+
         <div className={styles.calendarContainer}>
           {["일", "월", "화", "수", "목", "금", "토"].map((day) => (
-            <div key={day} className={`${styles.item} ${styles.weekName}`}>
+            <div
+              key={day}
+              className={`${styles.item} ${styles.weekName}`}
+            >
               {day}
             </div>
           ))}
-          {daysInMonth.map((day, index) => (
-            <div
-              key={index}
-              className={`${styles.item} ${
-                day.isOtherMonth ? styles.otherMonth : ""
-              }`}
-              onClick={() => !day.isOtherMonth && handleDateClick(day.date)}
-              style={{
-                backgroundColor: activeDate === day.date ? "#BB0038" : "#FFF",
-                cursor: "pointer",
-                color: activeDate === day.date ? "#FFF" : "#131313",
-              }}
-            >
-              {day.date}
-            </div>
-          ))}
+
+          {daysInMonth.map((day, idx) => {
+            const isActive = !day.isOtherMonth && activeDate === day.date;
+
+            return (
+              <div
+                key={idx}
+                className={`${styles.item} ${
+                  day.isOtherMonth ? styles.otherMonth : ""
+                }`}
+                onClick={() => !day.isOtherMonth && handleDateClick(day.date)}
+                style={{
+                  backgroundColor: isActive ? "#BB0038" : undefined,
+                  color: isActive ? "#FFF" : undefined,
+                }}
+              >
+                {day.date}
+              </div>
+            );
+          })}
         </div>
       </div>
 
@@ -142,12 +158,13 @@ const Calendar = ({ shopId }) => {
                 selectedNumber === num ? "_red" : ""
               }.png`}
               className={styles.numImg}
-              style={{ cursor: "pointer" }}
               alt={`${num}명`}
             />
             <div
               className={styles.numText}
-              style={{ color: selectedNumber === num ? "#BB0038" : "#B3B3B3" }}
+              style={{
+                color: selectedNumber === num ? "#BB0038" : "#B3B3B3",
+              }}
             >
               {num}명
             </div>
