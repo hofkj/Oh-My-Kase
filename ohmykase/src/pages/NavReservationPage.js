@@ -16,10 +16,21 @@ function NavReservationPage() {
   const fetchReservations = async () => {
     try {
       const [watingRes, okRes, finishedRes, cancelledRes] = await Promise.all([
-        axios.get(`http://localhost:3000/api/reservation/status/wating/${apiKey}`, { withCredentials: true }),
-        axios.get(`http://localhost:3000/api/reservation/status/ok/${apiKey}`, { withCredentials: true }),
-        axios.get(`http://localhost:3000/api/reservation/status/finished/${apiKey}`, { withCredentials: true }),
-        axios.get(`http://localhost:3000/api/reservation/status/cancle/${apiKey}`, { withCredentials: true }),
+        axios.get(
+          `http://localhost:3000/api/reservation/status/wating/${apiKey}`,
+          { withCredentials: true }
+        ),
+        axios.get(`http://localhost:3000/api/reservation/status/ok/${apiKey}`, {
+          withCredentials: true,
+        }),
+        axios.get(
+          `http://localhost:3000/api/reservation/status/finished/${apiKey}`,
+          { withCredentials: true }
+        ),
+        axios.get(
+          `http://localhost:3000/api/reservation/status/cancle/${apiKey}`,
+          { withCredentials: true }
+        ),
       ]);
 
       setUpcomingReservations([...watingRes.data, ...okRes.data]);
@@ -43,26 +54,34 @@ function NavReservationPage() {
 
   return (
     <div className={styles.container}>
-      <PageHeader text="예약" />
+      <div className={styles.tabWrapper}>
+        <PageHeader text="예약" className={styles.pageHeader} />
 
-      <div className={styles.tabContainer}>
-        <div
-          className={`${styles.tab} ${activeTab === "upcoming" ? styles.activeTab : ""}`}
-          onClick={() => setActiveTab("upcoming")}
-        >
-          예정된 예약
-        </div>
-        <div
-          className={`${styles.tab} ${activeTab === "completed" ? styles.activeTab : ""}`}
-          onClick={() => setActiveTab("completed")}
-        >
-          완료된 예약
-        </div>
-        <div
-          className={`${styles.tab} ${activeTab === "cancelled" ? styles.activeTab : ""}`}
-          onClick={() => setActiveTab("cancelled")}
-        >
-          취소된 예약
+        <div className={styles.tabContainer}>
+          <div
+            className={`${styles.tab} ${
+              activeTab === "upcoming" ? styles.activeTab : ""
+            }`}
+            onClick={() => setActiveTab("upcoming")}
+          >
+            예정된 예약
+          </div>
+          <div
+            className={`${styles.tab} ${
+              activeTab === "completed" ? styles.activeTab : ""
+            }`}
+            onClick={() => setActiveTab("completed")}
+          >
+            완료된 예약
+          </div>
+          <div
+            className={`${styles.tab} ${
+              activeTab === "cancelled" ? styles.activeTab : ""
+            }`}
+            onClick={() => setActiveTab("cancelled")}
+          >
+            취소된 예약
+          </div>
         </div>
       </div>
 
