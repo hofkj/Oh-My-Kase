@@ -6,8 +6,8 @@ import "swiper/css/pagination";
 import { FreeMode, Pagination } from "swiper/modules";
 
 import axios from "axios";
-import Restaurant from "../components/home/Restaurant";
-import styles from "../styles/home/restaurantSwiper.module.css";
+import Restaurant from "../home/Restaurant";
+import styles from "../../styles/home/restaurantSwiper.module.css";
 
 export default function BookmarkSwiper() {
   const [bookmarkList, setBookmarkList] = useState([]);
