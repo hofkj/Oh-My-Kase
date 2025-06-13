@@ -1,7 +1,8 @@
+// src/components/common/InputContainer.js
 import React from "react";
 import styles from "../../styles/common/inputContainer.module.css";
 
-function InputContainer({ title, value, setValue }) {
+function InputContainer({ title, value, onChange }) {
   return (
     <div className={styles.container}>
       <div className={styles.title}>{title}</div>
@@ -9,7 +10,7 @@ function InputContainer({ title, value, setValue }) {
         <input
           placeholder={title}
           value={value}
-          onChange={(e) => setValue(e.target.value)}
+          onChange={onChange}  // setValue → onChange로 변경
         />
       </div>
     </div>
