@@ -1,3 +1,4 @@
+// src/pages/NavReviewPage.jsx
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -23,19 +24,21 @@ export default function NavReviewPage() {
             { withCredentials: true }
           );
           const mapped = res.data.map((r) => ({
+            reviewId: r.review_id,           // 서버에서 내려주는 review_id
+            reservationId: r.reservation_id, // 서버에서 내려주는 reservation_id
             username: r.user,
             userProfile: "/images/icon/profile.png",
             restaurantName: r.shop_name,
             rating: r.rating,
             timeAgo: r.date,
-            peopleCount: Number(r.people_num.replace('명', '')),
+            peopleCount: Number(r.people_num.replace("명", "")),
             min_price: r.price.match(/¥([\d,]+)/)?.[1] || "",
             max_price: r.price.match(/~ ¥([\d,]+)/)?.[1] || "",
             text: r.writing,
             images: Array.isArray(r.images)
               ? r.images
               : typeof r.images === "string" && r.images.trim()
-              ? r.images.split(',')
+              ? r.images.split(",")
               : [],
           }));
           setAllReviews(mapped);
@@ -45,19 +48,21 @@ export default function NavReviewPage() {
             { withCredentials: true }
           );
           const mapped = res.data.map((r) => ({
+            reviewId: r.review_id,
+            reservationId: r.reservation_id,
             username: r.user,
             userProfile: "/images/icon/profile.png",
             restaurantName: r.shop_name,
             rating: r.rating,
             timeAgo: r.date,
-            peopleCount: Number(r.people_num.replace('명', '')),
+            peopleCount: Number(r.people_num.replace("명", "")),
             min_price: r.price.match(/¥([\d,]+)/)?.[1] || "",
             max_price: r.price.match(/~ ¥([\d,]+)/)?.[1] || "",
             text: r.writing,
             images: Array.isArray(r.images)
               ? r.images
               : typeof r.images === "string" && r.images.trim()
-              ? r.images.split(',')
+              ? r.images.split(",")
               : [],
           }));
           setMyReviews(mapped);
@@ -71,22 +76,24 @@ export default function NavReviewPage() {
   }, [activeTab]);
 
   const reviews = activeTab === "store" ? allReviews : myReviews;
+  // my 리뷰일 때만 edit 버튼 보임
   const editButtonText = activeTab === "store" ? null : "리뷰 수정하기";
 
   return (
     <div className={styles.container}>
       <div className={styles.tabWrapper}>
-
-
-      <TabMenu
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-        option1="전체리뷰"
-        option2="마이리뷰"
+        <TabMenu
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          option1="전체리뷰"
+          option2="마이리뷰"
         />
-        </div>
+      </div>
 
-      <ReviewContainer reviews={reviews} edit={editButtonText} />
+      <ReviewContainer
+        reviews={reviews}
+        edit={editButtonText}
+      />
 
       <Nav
         home="/images/nav/home.png"
