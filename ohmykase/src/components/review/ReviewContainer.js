@@ -5,16 +5,20 @@ import { Link } from "react-router-dom";
 export default function ReviewContainer({ reviews, edit }) {
   return (
     <div className={styles.reviewList}>
-      {reviews.map((review, index) => (
-        <ReviewItem key={index} review={review} edit={edit} />
+      {reviews.map((review) => (
+        <ReviewItem
+          key={review.reviewId}
+          review={review}
+          edit={edit}
+        />
       ))}
     </div>
   );
 }
 
-function ReviewItem({ review, edit }) {
+ function ReviewItem({ review, edit }) {
   const [isExpanded, setIsExpanded] = useState(false);
-  const MAX_LENGTH = 80; // 최대 글자 수
+  const MAX_LENGTH = 80;
 
   return (
     <div className={styles.reviewItem}>
@@ -28,13 +32,16 @@ function ReviewItem({ review, edit }) {
           <div className={styles.userInfo}>
             <div className={styles.userName}>{review.username}</div>
             <div className={styles.timeAgo}>
-              {review.restaurantName}•{review.timeAgo}
+              {review.restaurantName} • {review.timeAgo}
             </div>
           </div>
         </div>
         {edit && (
-          <Link to="/EditReviewPage">
-            <div className={styles.editButton}>리뷰 수정하기</div>
+          <Link
+            to={`/edit-review/${review.reservationId}`}
+            state={{ review }}
+          >
+            <div className={styles.editButton}>{edit}</div>
           </Link>
         )}
       </div>
@@ -44,7 +51,6 @@ function ReviewItem({ review, edit }) {
           <img src="../../images/icon/star_4.5.png" alt="rating" />
           <div className={styles.ratingValue}>{review.rating}</div>
         </div>
-
         <div className={styles.priceContainer}>
           {review.peopleCount}명 | ¥ {review.min_price} ~ ¥ {review.max_price}
         </div>
@@ -52,11 +58,11 @@ function ReviewItem({ review, edit }) {
 
       {review.images.length > 0 && (
         <div className={styles.reviewImages}>
-          {review.images.map((image, index) => (
+          {review.images.map((img, idx) => (
             <img
-              key={index}
-              src={image}
-              alt={`Review ${index + 1}`}
+              key={idx}
+              src={img}
+              alt={`Review ${idx + 1}`}
               className={styles.reviewImage}
             />
           ))}
