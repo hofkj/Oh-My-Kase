@@ -69,12 +69,13 @@ function ReservationPage() {
         <InputContainer
           title="예약자 본인의 이름을 적어주세요"
           value={name}
-          setValue={setName}
+          onChange={(e) => setName(e.target.value)}
         />
+
         <InputContainer
           title="이메일을 적어주세요"
           value={email}
-          setValue={setEmail}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <PriceRangeInput
           label="원하는 가격대의 범위를 설정해주세요"
