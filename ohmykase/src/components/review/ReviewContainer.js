@@ -1,24 +1,25 @@
 import React, { useState } from "react";
-import styles from "../../styles/review/ReviewContainer.module.css";
 import { Link } from "react-router-dom";
+import styles from "../../styles/review/ReviewContainer.module.css";
 
 export default function ReviewContainer({ reviews, edit }) {
   return (
     <div className={styles.reviewList}>
       {reviews.map((review) => (
-        <ReviewItem
-          key={review.reviewId}
-          review={review}
-          edit={edit}
-        />
+        <ReviewItem key={review.reviewId} review={review} edit={edit} />
       ))}
     </div>
   );
 }
 
- function ReviewItem({ review, edit }) {
+function ReviewItem({ review, edit }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const MAX_LENGTH = 80;
+
+  const getStarImage = (rating) => {
+    const rounded = Math.round(rating * 2) / 2; 
+    return `/images/icon/star_${rounded}.png`;
+  };
 
   return (
     <div className={styles.reviewItem}>
@@ -37,10 +38,7 @@ export default function ReviewContainer({ reviews, edit }) {
           </div>
         </div>
         {edit && (
-          <Link
-            to={`/edit-review/${review.reservationId}`}
-            state={{ review }}
-          >
+          <Link to={`/edit-review/${review.reservationId}`} state={{ review }}>
             <div className={styles.editButton}>{edit}</div>
           </Link>
         )}
@@ -48,7 +46,7 @@ export default function ReviewContainer({ reviews, edit }) {
 
       <div>
         <div className={styles.rating}>
-          <img src="../../images/icon/star_4.5.png" alt="rating" />
+          <img src={getStarImage(review.rating)} alt="rating" />
           <div className={styles.ratingValue}>{review.rating}</div>
         </div>
         <div className={styles.priceContainer}>
@@ -58,10 +56,10 @@ export default function ReviewContainer({ reviews, edit }) {
 
       {review.images.length > 0 && (
         <div className={styles.reviewImages}>
-          {review.images.map((img, idx) => (
+          {review.images.map((url, idx) => (
             <img
               key={idx}
-              src={img}
+              src={url}
               alt={`Review ${idx + 1}`}
               className={styles.reviewImage}
             />
