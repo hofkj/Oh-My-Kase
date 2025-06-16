@@ -19,23 +19,36 @@ function EditProfilePage() {
 
   const apiKey = "7VCEB37-69B4CKZ-QV2674N-BTZTWXE";
 
-  useEffect(() => {
-    axios
-      .get(`http://localhost:3000/api/user/info/${apiKey}`, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        setName(res.data.user_name);
-        setNickname(res.data.user_nickname);
-        const allergies = res.data.user_allergy
-          ? res.data.user_allergy.split(",")
-          : [];
-        setAllergyList(allergies);
-      })
-      .catch((err) => {
-        console.error("회원 정보 조회 실패:", err);
-      });
-  }, []);
+ useEffect(() => {
+  axios
+    .get(`http://localhost:3000/api/user/info/${apiKey}`, {
+      withCredentials: true,
+    })
+    .then((res) => {
+      setName(res.data.user_name);
+      setNickname(res.data.user_nickname);
+
+      let allergies = [];
+      if (res.data.user_allergy) {
+        try {
+          allergies = JSON.parse(res.data.user_allergy).map((item) =>
+            item.trim().replace(/^"|"$/g, "")
+          );
+        } catch (e) {
+          allergies = res.data.user_allergy
+            .replace(/[\[\]"]+/g, "") 
+            .split(",")
+            .map((item) => item.trim());
+        }
+      }
+
+      setAllergyList(allergies);
+    })
+    .catch((err) => {
+      console.error("회원 정보 조회 실패:", err);
+    });
+}, []);
+
 
   const handleSubmit = async () => {
     try {
