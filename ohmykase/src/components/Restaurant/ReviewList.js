@@ -15,6 +15,11 @@ function ReviewItem({ review }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const MAX_LENGTH = 80; // 최대 글자 수
 
+  const getStarImage = (rating) => {
+    const rounded = Math.round(rating * 2) / 2;
+    return `/images/icon/star_${rounded}.png`;
+  };
+
   return (
     <div className={styles.reviewItem}>
       <div className={styles.userContainer}>
@@ -30,8 +35,7 @@ function ReviewItem({ review }) {
       </div>
 
       <div className={styles.rating}>
-        {/* {"⭐".repeat(review.rating)} <span className={styles.ratingValue}>{review.rating}</span> */}
-        <img src="../../images/icon/star_4.5.png" />
+        <img src={getStarImage(review.rating)} alt="별점" />
         <div className={styles.ratingValue}>{review.rating}</div>
       </div>
 
