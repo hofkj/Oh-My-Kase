@@ -5,7 +5,7 @@ import "swiper/css/autoplay";
 import "swiper/css/pagination";
 import { Autoplay, Pagination } from "swiper/modules";
 
-import styles from "../../styles/home/benner.module.css";
+import styles from "../../styles/home/banner.module.css";
 
 const images = [
     "/images/benner/benner_img1.png",
@@ -15,7 +15,7 @@ const images = [
     "/images/benner/benner_img5.png"
 ];
 
-function Benner() {
+function Banner() {
     return (
         <div className={styles.bennerContainer}>
             <Swiper
@@ -35,4 +35,4 @@ function Benner() {
     );
 }
 
-export default Benner;
+export default Banner;
