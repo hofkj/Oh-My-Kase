@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Benner from "../components/home/Benner";
+import Banner from "../components/home/Banner";
 import Header from "../components/home/Header";
 import LocationDropdown from "../components/home/LocationDropdown";
 import MenuDropdown from "../components/home/MenuDropdown";
@@ -76,7 +76,7 @@ function HomePage() {
   return (
     <div className={styles.pageContainer}>
       <Header />
-      <Benner />
+      <Banner />
 
       <div className={styles.dropdownContainer}>
         <LocationDropdown selected={selectedLocation} setSelected={setSelectedLocation} />
