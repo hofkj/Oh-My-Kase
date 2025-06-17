@@ -9,7 +9,7 @@ import TabMenu from "../components/common/TabMenu";
 import StoreInfo from "../components/restaurant/StoreInfo";
 import ImageGallery from "../components/restaurant/ImageGallery";
 import ReviewList from "../components/restaurant/ReviewList";
-import Bottombar from "../components/restaurant/bottombar";
+import BottomBar from "../components/restaurant/BottomBar";
 import Calendar from "../components/reservation/Calendar";
 
 import styles from "../styles/pages/restaurantPage.module.css";
@@ -118,7 +118,7 @@ export default function RestaurantPage() {
         <ReviewList reviews={reviews} />
       )}
 
-      <Bottombar onClickReserve={() => setShowCalendar(true)} shopId={restaurantData.id} />
+      <BottomBar onClickReserve={() => setShowCalendar(true)} shopId={restaurantData.id} />
 
       {(showCalendar || isAnimating) && (
         <div
