@@ -6,7 +6,7 @@ import "swiper/css/pagination";
 import { FreeMode, Pagination } from "swiper/modules";
 
 import axios from "axios";
-import Restaurant from "../home/Restaurant";
+import Restaurant from "../Home1/Restaurant";
 import styles from "../../styles/home/restaurantSwiper.module.css";
 
 export default function BookmarkSwiper() {
