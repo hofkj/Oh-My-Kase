@@ -5,6 +5,7 @@ import "swiper/css/autoplay";
 import "swiper/css/pagination";
 import { Autoplay, Pagination } from "swiper/modules";
 
+//../../styles/home/banner.module.css
 import styles from "../../styles/home/banner.module.css";
 
 const images = [
