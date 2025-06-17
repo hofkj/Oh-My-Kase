@@ -15,7 +15,7 @@ const images = [
     "/images/benner/benner_img5.png"
 ];
 
-function banner() {
+function Banner() {
     return (
         <div className={styles.bennerContainer}>
             <Swiper
@@ -35,4 +35,4 @@ function banner() {
     );
 }
 
-export default banner;
+export default Banner;
