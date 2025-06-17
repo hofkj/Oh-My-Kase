@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Banner from "../components/home/banner"
+import Banner from "../components/home/Banner"
 import Header from "../components/home/Header";
 import LocationDropdown from "../components/home/LocationDropdown";
 import MenuDropdown from "../components/home/MenuDropdown";
