@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "../../styles/restaurant/restaurantImage.module.css";
-import Arrow from "../restaurant/Arrow";
+import Arrow from "./Arrow";
 
 export default function RestaurantImage({ imageUrl }) {
     return (
