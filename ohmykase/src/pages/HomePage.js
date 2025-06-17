@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Banner from "../components/home/Banner"
-import Header from "../components/Home1/Header";
-import LocationDropdown from "../components/Home1/LocationDropdown";
-import MenuDropdown from "../components/Home1/MenuDropdown";
-import Omakase from "../components/Home1/Omakase";
-import RestaurantSwiper from "../components/Home1/RestaurantSwiper";
+import Header from "../components/home/Header";
+import LocationDropdown from "../components/home/LocationDropdown";
+import MenuDropdown from "../components/home/MenuDropdown";
+import Omakase from "../components/home/Omakase";
+import RestaurantSwiper from "../components/home/RestaurantSwiper";
 import Nav from "../components/common/Nav";
 import styles from "../styles/pages/homePage.module.css";
 import axios from "axios";
