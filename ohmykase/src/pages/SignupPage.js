@@ -7,6 +7,9 @@ import TitleHeaderBar from "../components/common/TitleHeaderBar";
 import Progress from "../components/common/Progress";
 import BottomButton from "../components/common/BottomButton";
 
+const API_URL = process.env.REACT_APP_API_URL;
+const API_KEY = process.env.REACT_APP_API_KEY;
+
 function SignupPage() {
   const navigate = useNavigate();
 
@@ -39,7 +42,7 @@ function SignupPage() {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/user/join/7VCEB37-69B4CKZ-QV2674N-BTZTWXE",
+        `${API_URL}/api/user/join/${API_KEY}`,
         {
           name: name,
           nickname: nickname,

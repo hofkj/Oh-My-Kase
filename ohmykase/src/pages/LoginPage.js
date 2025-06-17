@@ -3,23 +3,18 @@ import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import styles from "../styles/pages/LoginPage.module.css";
 
+const API_URL = process.env.REACT_APP_API_URL;
+const API_KEY = process.env.REACT_APP_API_KEY;
+
 function LoginPage() {
   const navigate = useNavigate();
   const [nickname, setNickname] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleNicknameChange = (e) => {
-    setNickname(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
+  const handleNicknameChange = (e) => setNickname(e.target.value);
+  const handlePasswordChange = (e) => setPassword(e.target.value);
+  const togglePasswordVisibility = () => setShowPassword(!showPassword);
 
   const handleLogin = async () => {
     if (!nickname || !password) {
@@ -29,7 +24,7 @@ function LoginPage() {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/user/login/7VCEB37-69B4CKZ-QV2674N-BTZTWXE",
+        `${API_URL}/api/user/login/${API_KEY}`,
         {
           nickname: nickname,
           password: password,
@@ -42,14 +37,21 @@ function LoginPage() {
       navigate("/");
     } catch (error) {
       console.error("로그인 실패:", error.response?.data || error.message);
-      alert(error.response?.data?.error || "로그인 실패. 아이디 또는 비밀번호를 확인해주세요.");
+      alert(
+        error.response?.data?.error ||
+          "로그인 실패. 아이디 또는 비밀번호를 확인해주세요."
+      );
     }
   };
 
   return (
     <div className={styles.container}>
       <div className={styles.logoContainer}>
-        <img src="/images/icon/logo.png" alt="Oh! my Kase" className={styles.logo} />
+        <img
+          src="/images/icon/logo.png"
+          alt="Oh! my Kase"
+          className={styles.logo}
+        />
       </div>
 
       <div className={styles.formContainer}>
@@ -74,7 +76,11 @@ function LoginPage() {
               value={password}
               onChange={handlePasswordChange}
             />
-            <button type="button" className={styles.eyeButton} onClick={togglePasswordVisibility}>
+            <button
+              type="button"
+              className={styles.eyeButton}
+              onClick={togglePasswordVisibility}
+            >
               {showPassword ? (
                 <img src="/images/icon/eye-open.png" alt="비밀번호 숨기기" />
               ) : (
@@ -97,7 +103,10 @@ function LoginPage() {
           </div>
           <Link to="/SignupPage" className={styles.signupLink}>
             <span>회원가입 하러 가기</span>
-            <img src="/images/icon/arrow_red.png" className={styles.arrowIcon} />
+            <img
+              src="/images/icon/arrow_red.png"
+              className={styles.arrowIcon}
+            />
           </Link>
         </div>
 
