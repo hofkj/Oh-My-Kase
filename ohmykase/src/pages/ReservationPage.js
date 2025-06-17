@@ -29,33 +29,44 @@ function ReservationPage() {
     navigate("/RestaurantPage");
   };
 
-  const handleSubmit = async () => {
-    if (!name || !email || !minPrice || !maxPrice || !foodAmount) {
-      alert("모든 값을 입력해주세요.");
+ const handleSubmit = async () => {
+  if (!name || !email || !minPrice || !maxPrice || !foodAmount) {
+    alert("모든 값을 입력해주세요.");
+    return;
+  }
+
+  try {
+    const response = await axios.post(
+      `http://localhost:3000/api/reservation/step2/${apiKey}/${reservationId}`,
+      {
+        name,
+        mail: email,
+        min_price: minPrice,
+        max_price: maxPrice,
+        food_amount: foodAmount,
+      },
+      { withCredentials: true }
+    );
+
+    const userId = response.data?.user_id; 
+
+    if (!userId) {
+      alert("유저 정보 로딩 실패");
       return;
     }
 
-    try {
-      await axios.post(
-        `http://localhost:3000/api/reservation/step2/${apiKey}/${reservationId}`,
-        {
-          name,
-          mail: email,
-          min_price: minPrice,
-          max_price: maxPrice,
-          food_amount: foodAmount,
-        },
-        { withCredentials: true }
-      );
+    navigate("/ReservationUserInfoPage", {
+      state: {
+        reservationId,
+        userId, 
+      },
+    });
+  } catch (err) {
+    console.error("예약 정보 저장 실패:", err);
+    alert("예약 정보 저장에 실패했습니다.");
+  }
+};
 
-      navigate("/ReservationUserInfoPage", {
-        state: { reservationId },
-      });
-    } catch (err) {
-      console.error("예약 정보 저장 실패:", err);
-      alert("예약 정보 저장에 실패했습니다.");
-    }
-  };
 
   return (
     <div className={styles.container}>
