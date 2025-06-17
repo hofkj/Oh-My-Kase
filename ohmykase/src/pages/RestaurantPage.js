@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-import RestaurantImage from "../components/restaurant/RestaurantImage";
+import RestaurantImage from '../components/restaurant/RestaurantImage';
 import RestaurantInfo from "../components/restaurant/RestaurantInfo";
 import TagList from "../components/restaurant/TagList";
 import TabMenu from "../components/common/TabMenu";
