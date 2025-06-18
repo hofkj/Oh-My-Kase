@@ -1,3 +1,5 @@
 {
-  "rewrites": [{ "source": "/(.*)", "destination": "/LoginPage" }]
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/" }
+  ]
 }
