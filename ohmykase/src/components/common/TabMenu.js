@@ -4,7 +4,6 @@ import styles from "../../styles/common/tabMenu.module.css";
 export default function TabMenu({ activeTab, setActiveTab, option1, option2 }) {
     return (
         <div className={styles.tabMenu}>
-            {/* 버튼 클릭 시 activeTab 상태를 변경 */}
             <button 
                 className={activeTab === "store" ? styles.active : ""}
                 onClick={() => setActiveTab("store")}

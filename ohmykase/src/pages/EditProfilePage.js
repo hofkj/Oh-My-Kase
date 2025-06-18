@@ -7,6 +7,7 @@ import TitleHeaderBar from "../components/common/TitleHeaderBar";
 import InputContainer from "../components/common/InputContainer";
 import AllergyInput from "../components/common/AllergyInput";
 import BottomButton from "../components/common/BottomButton";
+const API_URL = process.env.REACT_APP_API_URL;
 
 function EditProfilePage() {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ function EditProfilePage() {
 
  useEffect(() => {
   axios
-    .get(`http://localhost:3000/api/user/info/${apiKey}`, {
+    .get(`${API_URL}/api/user/info/${apiKey}`, {
       withCredentials: true,
     })
     .then((res) => {
@@ -53,7 +54,7 @@ function EditProfilePage() {
   const handleSubmit = async () => {
     try {
       await axios.patch(
-        `http://localhost:3000/api/user/update/${apiKey}`,
+        `${API_URL}/api/user/update/${apiKey}`,
         {
           name,
           nickname,
@@ -74,7 +75,7 @@ function EditProfilePage() {
   const handleLogout = async () => {
     try {
       await axios.post(
-        `http://localhost:3000/api/user/logout/${apiKey}`,
+        `${API_URL}/api/user/logout/${apiKey}`,
         {},
         { withCredentials: true }
       );
@@ -89,7 +90,7 @@ function EditProfilePage() {
 
   const handleDeleteAccount = async () => {
     try {
-      await axios.delete(`http://localhost:3000/api/user/delete/${apiKey}`, {
+      await axios.delete(`${API_URL}/api/user/delete/${apiKey}`, {
         withCredentials: true,
       });
       alert("회원 탈퇴되었습니다");

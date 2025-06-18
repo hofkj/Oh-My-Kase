@@ -5,6 +5,8 @@ import axios from "axios";
 
 function MapItem({ shopId }) {
   const apiKey = "7VCEB37-69B4CKZ-QV2674N-BTZTWXE";
+  const API_URL = process.env.REACT_APP_API_URL;
+
   const [shops, setShops] = useState([]);
   const navigate = useNavigate();
 
@@ -12,7 +14,7 @@ function MapItem({ shopId }) {
     if (shopId) {
       // 단일 가게 정보 불러오기
       axios
-        .get(`http://localhost:3000/api/shop/${apiKey}/${shopId}`)
+        .get(`${API_URL}/api/shop/${apiKey}/${shopId}`)
         .then((res) => {
           const shopData = res.data[0];
           shopData.shop_images = shopData.shop_images?.split(",") || [];
@@ -22,7 +24,7 @@ function MapItem({ shopId }) {
     } else {
       // 북마크된 가게 목록 불러오기
       axios
-        .get(`http://localhost:3000/api/bookmark/user/${apiKey}`, {
+        .get(`${API_URL}/api/bookmark/user/${apiKey}`, {
           withCredentials: true,
         })
         .then((res) => {

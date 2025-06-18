@@ -13,6 +13,8 @@ import BottomBar from "../components/restaurant/BottomBar";
 import Calendar from "../components/reservation/Calendar";
 
 import styles from "../styles/pages/restaurantPage.module.css";
+const API_URL = process.env.REACT_APP_API_URL;
+
 
 export default function RestaurantPage() {
   const navigate = useNavigate();
@@ -27,7 +29,7 @@ export default function RestaurantPage() {
   // 1) 가게 정보 불러오기
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/api/shop/${apiKey}/${id}`, { withCredentials: true })
+      .get(`${API_URL}/api/shop/${apiKey}/${id}`, { withCredentials: true })
       .then((res) => {
         const shop = Array.isArray(res.data) ? res.data[0] : res.data;
         if (!shop) throw new Error("Shop not found");
@@ -44,7 +46,7 @@ export default function RestaurantPage() {
   useEffect(() => {
     if (activeTab === "review" && reviews.length === 0) {
       axios
-        .get(`http://localhost:3000/api/shop/reviews/${apiKey}/${id}`, { withCredentials: true })
+        .get(`${API_URL}/api/shop/reviews/${apiKey}/${id}`, { withCredentials: true })
         .then((res) => {
           console.log("리뷰 API 응답:", res.data);
           const list = res.data.map((r) => ({

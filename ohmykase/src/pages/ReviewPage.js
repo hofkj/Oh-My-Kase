@@ -6,6 +6,7 @@ import TitleHeaderBar from "../components/common/TitleHeaderBar";
 import BottomButton from "../components/common/BottomButton";
 
 const apiKey = "7VCEB37-69B4CKZ-QV2674N-BTZTWXE";
+const API_URL = process.env.REACT_APP_API_URL;
 
 function ReviewPage() {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ function ReviewPage() {
     const fetchReviewInfo = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3000/api/review/chose_write/${apiKey}/${reservationId}`
+          `${API_URL}/api/review/chose_write/${apiKey}/${reservationId}`
         );
         setReviewInfo(res.data);
       } catch (err) {
@@ -81,7 +82,7 @@ function ReviewPage() {
       };
 
       const res = await axios.post(
-        `http://localhost:3000/api/review/write/${apiKey}/${reservationId}`,
+        `${API_URL}/api/review/write/${apiKey}/${reservationId}`,
         reviewData
       );
 

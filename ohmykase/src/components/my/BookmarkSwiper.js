@@ -12,10 +12,11 @@ import styles from "../../styles/home/restaurantSwiper.module.css";
 export default function BookmarkSwiper() {
   const [bookmarkList, setBookmarkList] = useState([]);
   const apiKey = "7VCEB37-69B4CKZ-QV2674N-BTZTWXE";
+  const API_URL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/api/bookmark/user/${apiKey}`, {
+      .get(`${API_URL}/api/bookmark/user/${apiKey}`, {
         withCredentials: true,
       })
       .then((res) => {

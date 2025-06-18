@@ -12,11 +12,12 @@ function SearchPage() {
   const [filteredData, setFilteredData] = useState([]);
   const [searchHistory, setSearchHistory] = useState([]);
   const apiKey = process.env.REACT_APP_API_KEY;
+  const API_URL = process.env.REACT_APP_API_URL;
 
   // 검색 기록
   const fetchSearchHistory = useCallback(() => {
     axios
-      .get(`http://localhost:3000/api/search/user_search_history/${apiKey}`, {
+      .get(`${API_URL}/api/search/user_search_history/${apiKey}`, {
         withCredentials: true,
       })
       .then((res) => setSearchHistory(res.data))
@@ -35,12 +36,12 @@ function SearchPage() {
 
     try {
       const res = await axios.post(
-        `http://localhost:3000/api/search/user_search/${apiKey}`,
+        `${API_URL}/api/search/user_search/${apiKey}`,
         { user_insert: input },
         { withCredentials: true }
       );
       setFilteredData(res.data);
-      fetchSearchHistory(); 
+      fetchSearchHistory();
     } catch (err) {
       console.error("검색 실패:", err);
       setFilteredData([]);

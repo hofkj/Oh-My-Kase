@@ -6,6 +6,8 @@ import ResultOmakase from "../components/search/ResultOmakase";
 import Nav from "../components/common/Nav";
 import axios from "axios";
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 function StoragePage() {
   const navigate = useNavigate();
   const [restaurants, setRestaurants] = useState([]);
@@ -13,7 +15,7 @@ function StoragePage() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/api/bookmark/user/${apiKey}`, {
+      .get(`${API_URL}/api/bookmark/user/${apiKey}`, {
         withCredentials: true,
       })
       .then((res) => {

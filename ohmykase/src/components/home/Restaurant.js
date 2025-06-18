@@ -15,6 +15,7 @@ function Restaurant({
   const [isBookmarked, setIsBookmarked] = useState(initialBookmarked);
   const navigate = useNavigate();
   const apiKey = "7VCEB37-69B4CKZ-QV2674N-BTZTWXE";
+  const API_URL = process.env.REACT_APP_API_URL;
 
   const toggleBookmark = async (e) => {
     e.stopPropagation();
@@ -22,14 +23,14 @@ function Restaurant({
     try {
       if (isBookmarked) {
         await axios.delete(
-          `http://localhost:3000/api/bookmark/delete/${apiKey}/${id}`,
+          `${API_URL}/api/bookmark/delete/${apiKey}/${id}`,
           { withCredentials: true }
         );
         setIsBookmarked(false);
         if (deletable && onDelete) onDelete(id);
       } else {
         await axios.post(
-          `http://localhost:3000/api/bookmark/add/${apiKey}/${id}`,
+          `${API_URL}/api/bookmark/add/${apiKey}/${id}`,
           {},
           { withCredentials: true }
         );

@@ -6,6 +6,7 @@ import ReservationItem from "../components/reservation/ReservationItem";
 import axios from "axios";
 
 const apiKey = "7VCEB37-69B4CKZ-QV2674N-BTZTWXE";
+const API_URL = process.env.REACT_APP_API_URL;
 
 function NavReservationPage() {
   const [activeTab, setActiveTab] = useState("upcoming");
@@ -17,18 +18,18 @@ function NavReservationPage() {
     try {
       const [watingRes, okRes, finishedRes, cancelledRes] = await Promise.all([
         axios.get(
-          `http://localhost:3000/api/reservation/status/wating/${apiKey}`,
+          `${API_URL}/api/reservation/status/wating/${apiKey}`,
           { withCredentials: true }
         ),
-        axios.get(`http://localhost:3000/api/reservation/status/ok/${apiKey}`, {
+        axios.get(`${API_URL}/api/reservation/status/ok/${apiKey}`, {
           withCredentials: true,
         }),
         axios.get(
-          `http://localhost:3000/api/reservation/status/finished/${apiKey}`,
+          `${API_URL}/api/reservation/status/finished/${apiKey}`,
           { withCredentials: true }
         ),
         axios.get(
-          `http://localhost:3000/api/reservation/status/cancle/${apiKey}`,
+          `${API_URL}/api/reservation/status/cancle/${apiKey}`,
           { withCredentials: true }
         ),
       ]);

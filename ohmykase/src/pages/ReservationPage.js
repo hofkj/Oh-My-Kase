@@ -13,6 +13,7 @@ import FoodAmountSelector from "../components/reservation/FoodAmountSelector";
 import styles from "../styles/pages/ReservationPage.module.css";
 
 const apiKey = "7VCEB37-69B4CKZ-QV2674N-BTZTWXE";
+const API_URL = process.env.REACT_APP_API_URL;
 
 function ReservationPage() {
   const navigate = useNavigate();
@@ -37,7 +38,7 @@ function ReservationPage() {
 
   try {
     const response = await axios.post(
-      `http://localhost:3000/api/reservation/step2/${apiKey}/${reservationId}`,
+      `${API_URL}/api/reservation/step2/${apiKey}/${reservationId}`,
       {
         name,
         mail: email,

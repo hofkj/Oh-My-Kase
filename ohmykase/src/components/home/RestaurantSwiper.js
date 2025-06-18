@@ -11,11 +11,12 @@ import styles from "../../styles/home/restaurantSwiper.module.css";
 export default function RestaurantSwiper({ shopList }) {
   const [bookmarkedIds, setBookmarkedIds] = useState([]);
   const apiKey = "7VCEB37-69B4CKZ-QV2674N-BTZTWXE";
+  const API_URL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     // 북마크된 가게 id 불러오기
     axios
-      .get(`http://localhost:3000/api/bookmark/user/${apiKey}`, {
+      .get(`${API_URL}/api/bookmark/user/${apiKey}`, {
         withCredentials: true,
       })
       .then((res) => {

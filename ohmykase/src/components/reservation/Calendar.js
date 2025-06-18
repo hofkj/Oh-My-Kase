@@ -7,6 +7,7 @@ import TimeSwiper from "./TimeSwiper";
 import axios from "axios";
 
 const apiKey = "7VCEB37-69B4CKZ-QV2674N-BTZTWXE";
+const API_URL = process.env.REACT_APP_API_URL;
 
 const Calendar = ({ shopId }) => {
   const navigate = useNavigate();
@@ -83,7 +84,7 @@ const Calendar = ({ shopId }) => {
 
     try {
       const res = await axios.post(
-        `http://localhost:3000/api/reservation/step1/${apiKey}/${shopId}`,
+        `${API_URL}/api/reservation/step1/${apiKey}/${shopId}`,
         {
           date: formattedDate,
           people_num: selectedNumber,
