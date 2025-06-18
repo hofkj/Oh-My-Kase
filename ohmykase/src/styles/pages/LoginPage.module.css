@@ -175,7 +175,8 @@
 }
 
 .loginButton {
-  width: 339px;
+  width: 100%;
+  max-width: 339px;
   height: 45px;
   border-radius: 12px;
   border: none;
@@ -185,16 +186,14 @@
   font-size: 14px;
   font-style: normal;
   font-weight: 600;
-  line-height: 22px; /* 157.143% */
+  line-height: 22px;
   transition: background-color 0.2s;
-
   background: #bb0038;
-  position: absolute;
-  bottom: 3%;
-  left: 7%;
 
-  /* background: var(--BLACK-04, #D5D5D5); */
+  display: block;
+  margin: 180px auto 0 auto;
 }
+
 
 /* 버튼 색상 수정 필요 임시 */
 
@@ -203,27 +202,3 @@
   color: #a0a0a0;
   cursor: not-allowed;
 }
-
-/* 모바일 최적화 */
-/* @media (max-width: 480px) {
-  .container {
-    padding: 16px;
-  }
-
-  .title {
-    font-size: 28px;
-  }
-
-  .input {
-    padding: 12px;
-  }
-
-  .loginButton {
-    padding: 12px;
-  }
-} */
-
-
-/* .loginButton:hover {
-  background-color: #a01f25;
-} */
