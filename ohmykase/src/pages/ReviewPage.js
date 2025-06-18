@@ -28,7 +28,8 @@ function ReviewPage() {
     const fetchReviewInfo = async () => {
       try {
         const res = await axios.get(
-          `${API_URL}/api/review/chose_write/${apiKey}/${reservationId}`
+          `${API_URL}/api/review/chose_write/${apiKey}/${reservationId}`,
+          { withCredentials: true }
         );
         setReviewInfo(res.data);
       } catch (err) {
@@ -77,7 +78,7 @@ function ReviewPage() {
     try {
       const reviewData = {
         rating,
-        image: images.join(", "), 
+        image: images.join(", "),
         writing: reviewText,
       };
 
@@ -86,8 +87,8 @@ function ReviewPage() {
         reviewData
       );
 
-      alert(res.data.message); 
-      navigate("/NavReviewPage"); 
+      alert(res.data.message);
+      navigate("/NavReviewPage");
     } catch (err) {
       console.log("리뷰 제출 실패", err);
     }
@@ -110,7 +111,9 @@ function ReviewPage() {
                 <div className={styles.reservationDetails}>
                   {reviewInfo.info}
                 </div>
-                <div className={styles.restaurantName}>{reviewInfo.shop_name}</div>
+                <div className={styles.restaurantName}>
+                  {reviewInfo.shop_name}
+                </div>
                 <div className={styles.priceRange}>{reviewInfo.price}</div>
               </div>
             </div>

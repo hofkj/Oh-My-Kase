@@ -48,7 +48,8 @@ function SignupPage() {
           nickname: nickname,
           password: password,
           password_ck: confirmPassword,
-        }
+        },
+        { withCredentials: true }
       );
       alert("회원가입 성공!");
       navigate("/LoginPage");

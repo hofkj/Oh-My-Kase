@@ -24,21 +24,25 @@ function HomePage() {
     try {
       if (selectedLocation && !selectedMenu) {
         const res = await axios.get(
-          `${API_URL}/api/search/areafilter/${apiKey}/${selectedLocation}`
+          `${API_URL}/api/search/areafilter/${apiKey}/${selectedLocation}`,
+        { withCredentials: true }
         );
         setFilteredShops(res.data);
       } else if (!selectedLocation && selectedMenu) {
         const res = await axios.get(
-          `${API_URL}/api/search/categoryfilter/${apiKey}/${selectedMenu}`
+          `${API_URL}/api/search/categoryfilter/${apiKey}/${selectedMenu}`,
+        { withCredentials: true }
         );
         setFilteredShops(res.data);
       } else if (selectedLocation && selectedMenu) {
         const [areaRes, categoryRes] = await Promise.all([
           axios.get(
-            `${API_URL}/api/search/areafilter/${apiKey}/${selectedLocation}`
+            `${API_URL}/api/search/areafilter/${apiKey}/${selectedLocation}`,
+        { withCredentials: true }
           ),
           axios.get(
-            `${API_URL}/api/search/categoryfilter/${apiKey}/${selectedMenu}`
+            `${API_URL}/api/search/categoryfilter/${apiKey}/${selectedMenu}`,
+        { withCredentials: true }
           ),
         ]);
         const intersection = areaRes.data.filter((areaShop) =>
@@ -47,7 +51,8 @@ function HomePage() {
         setFilteredShops(intersection);
       } else {
         const res = await axios.get(
-          `${API_URL}/api/shop/shop_list/${apiKey}`
+          `${API_URL}/api/shop/shop_list/${apiKey}`,
+        { withCredentials: true }
         );
         setAllShops(res.data);
       }
@@ -62,7 +67,8 @@ function HomePage() {
 
   useEffect(() => {
     axios
-      .get(`${API_URL}/api/shop/shop_list/${apiKey}`)
+      .get(`${API_URL}/api/shop/shop_list/${apiKey}`,
+        { withCredentials: true })
       .then((res) => setAllShops(res.data))
       .catch((err) => console.error("전체 가게 불러오기 실패:", err));
   }, []);

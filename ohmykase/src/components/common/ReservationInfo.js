@@ -13,7 +13,8 @@ useEffect(() => {
   if (!reservationId) return;
 
     axios
-      .get(`${API_URL}/api/reservation/info/${apiKey}/${reservationId}`)
+      .get(`${API_URL}/api/reservation/info/${apiKey}/${reservationId}`,
+        { withCredentials: true })
       .then((res) => {
         const { date, time, people_num } = res.data;
         const text = `${date} | ${time} | ${people_num}`;
