@@ -2,15 +2,15 @@
   "rewrites": [
     {
       "source": "/api/:match*",
-      "destination": "https://3.34.200.37:3000/api/:match*"
+      "destination": "https://ohmykase.mirim-it-show.site/api/:match*"
     },
     {
       "source": "/uploads/:match*",
-      "destination": "https://3.34.200.37:3000/uploads/:match*"
+      "destination": "https://ohmykase.mirim-it-show.site/uploads/:match*"
     },
     {
       "source": "/(.*)",
       "destination": "/"
     }
-  ]
+  ] 
 }
