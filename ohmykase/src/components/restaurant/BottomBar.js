@@ -13,13 +13,15 @@ export default function BottomBar({ onClickReserve, shopId }) {
 
     // 1. 북마크 수 가져오기
     axios
-      .get(`${API_URL}/api/bookmark/shop/${apiKey}/${shopId}`)
+      .get(`${API_URL}/api/bookmark/shop/${apiKey}/${shopId}`,
+        { withCredentials: true })
       .then((res) => setBookmarkCount(res.data.bookmark_sum))
       .catch((err) => console.error("북마크 수 불러오기 실패:", err));
 
     // 2. 현재 유저의 북마크 목록 확인 (이 가게가 북마크 되어 있는지)
     axios
-      .get(`${API_URL}/api/bookmark/user/${apiKey}`)
+      .get(`${API_URL}/api/bookmark/user/${apiKey}`,
+        { withCredentials: true })
       .then((res) => {
         const list = res.data.bookmark_list || [];
         const found = list.find((shop) => shop.id === shopId);
@@ -35,12 +37,14 @@ export default function BottomBar({ onClickReserve, shopId }) {
       if (isBookmarked) {
         // 북마크 삭제
         await axios.delete(
-          `${API_URL}/api/bookmark/delete/${apiKey}/${shopId}`
+          `${API_URL}/api/bookmark/delete/${apiKey}/${shopId}`,
+        { withCredentials: true }
         );
         setBookmarkCount((prev) => Math.max(prev - 1, 0));
       } else {
         // 북마크 추가
-        await axios.post(`${API_URL}/api/bookmark/add/${apiKey}/${shopId}`);
+        await axios.post(`${API_URL}/api/bookmark/add/${apiKey}/${shopId}`,
+        { withCredentials: true });
         setBookmarkCount((prev) => prev + 1);
       }
 

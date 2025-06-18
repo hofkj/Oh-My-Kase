@@ -14,7 +14,8 @@ function MapItem({ shopId }) {
     if (shopId) {
       // 단일 가게 정보 불러오기
       axios
-        .get(`${API_URL}/api/shop/${apiKey}/${shopId}`)
+        .get(`${API_URL}/api/shop/${apiKey}/${shopId}`,
+        { withCredentials: true })
         .then((res) => {
           const shopData = res.data[0];
           shopData.shop_images = shopData.shop_images?.split(",") || [];

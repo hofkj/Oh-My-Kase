@@ -11,7 +11,8 @@ function Search({ onHashtagClick, searchHistory }) {
 
   useEffect(() => {
     axios
-      .get(`${API_URL}/api/search/random_tag/${apiKey}`)
+      .get(`${API_URL}/api/search/random_tag/${apiKey}`,
+        { withCredentials: true })
       .then((res) => {
         setHashtags(res.data);
       })
@@ -23,7 +24,8 @@ function Search({ onHashtagClick, searchHistory }) {
   const handleTagClick = async (tagId, tagName) => {
     try {
       const res = await axios.get(
-        `${API_URL}/api/search/tagfilter/${apiKey}/${tagId}`
+        `${API_URL}/api/search/tagfilter/${apiKey}/${tagId}`,
+        { withCredentials: true }
       );
       onHashtagClick(tagName, res.data);
     } catch (err) {

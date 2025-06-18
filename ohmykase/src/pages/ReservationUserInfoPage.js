@@ -37,7 +37,8 @@ function ReservationUserInfoPage() {
   useEffect(() => {
     if (!userId || peopleNum === 0) return;
     axios
-      .get(`${API_URL}/api/reservation/user_info/${apiKey}/${userId}`)
+      .get(`${API_URL}/api/reservation/user_info/${apiKey}/${userId}`,
+        { withCredentials: true })
       .then((res) => {
         let allergy = res.data;
         let parsed = [];
