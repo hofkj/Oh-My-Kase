@@ -6,7 +6,7 @@
     },
     {
       "source": "/uploads/:match*",
-      "destination": "https://3.34.200.37:3000/user/:match*"
+      "destination": "https://3.34.200.37:3000/uploads/:match*"
     },
     {
       "source": "/(.*)",
