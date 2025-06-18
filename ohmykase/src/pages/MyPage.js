@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import BookmarkSwiper from "../components/my/BookmarkSwiper";
 
 const apiKey = "7VCEB37-69B4CKZ-QV2674N-BTZTWXE";
+const API_URL = process.env.REACT_APP_API_URL;
 
 function MyPage() {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ function MyPage() {
     const fetchUserInfo = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3000/api/user/info/${apiKey}`,
+          `${API_URL}/api/user/info/${apiKey}`,
           { withCredentials: true }
         );
 
@@ -47,7 +48,7 @@ function MyPage() {
     const fetchReviewInfo = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3000/api/review/can_write/${apiKey}`,
+          `${API_URL}/api/review/can_write/${apiKey}`,
           { withCredentials: true }
         );
         setReviewInfo(res.data);

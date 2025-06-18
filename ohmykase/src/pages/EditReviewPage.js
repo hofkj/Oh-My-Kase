@@ -8,6 +8,7 @@ import TitleHeaderBar from "../components/common/TitleHeaderBar";
 import BottomButton from "../components/common/BottomButton";
 
 const apiKey = "7VCEB37-69B4CKZ-QV2674N-BTZTWXE";
+const API_URL = process.env.REACT_APP_API_URL;
 
 export default function EditReviewPage() {
   const { reservationId } = useParams();
@@ -33,7 +34,7 @@ export default function EditReviewPage() {
     const fetchReservation = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3000/api/review/chose_write/${apiKey}/${reservationId}`,
+          `${API_URL}/api/review/chose_write/${apiKey}/${reservationId}`,
           { withCredentials: true }
         );
         setReservationInfo(res.data);
@@ -65,7 +66,7 @@ export default function EditReviewPage() {
   const handleSubmit = async () => {
     try {
       await axios.patch(
-        `http://localhost:3000/api/review/edit/${apiKey}/${initReview.reviewId}`,
+        `${API_URL}/api/review/edit/${apiKey}/${initReview.reviewId}`,
         {
           rating,
           writing: reviewText,

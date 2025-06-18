@@ -2,7 +2,6 @@ import React from "react";
 import styles from "../../styles/common/PageHeader.module.css";
 
 function PageHeader(props) {
-//   const navigate = useNavigate();
 
   return (
     <div className={styles.container}>

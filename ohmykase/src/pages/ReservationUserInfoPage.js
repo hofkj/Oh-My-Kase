@@ -9,6 +9,7 @@ import axios from "axios";
 import styles from "../styles/pages/reservationUserInfoPage.module.css";
 
 const apiKey = "7VCEB37-69B4CKZ-QV2674N-BTZTWXE";
+const API_URL = process.env.REACT_APP_API_URL;
 
 function ReservationUserInfoPage() {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ function ReservationUserInfoPage() {
   useEffect(() => {
     if (!reservationId) return;
     axios
-      .get(`http://localhost:3000/api/reservation/info/${apiKey}/${reservationId}`)
+      .get(`${API_URL}/api/reservation/info/${apiKey}/${reservationId}`)
       .then((res) => {
         const { people_num } = res.data;
         const number = parseInt(people_num.replace("명", ""));
@@ -36,7 +37,7 @@ function ReservationUserInfoPage() {
   useEffect(() => {
     if (!userId || peopleNum === 0) return;
     axios
-      .get(`http://localhost:3000/api/reservation/user_info/${apiKey}/${userId}`)
+      .get(`${API_URL}/api/reservation/user_info/${apiKey}/${userId}`)
       .then((res) => {
         let allergy = res.data;
         let parsed = [];
@@ -65,7 +66,7 @@ function ReservationUserInfoPage() {
 
     try {
       await axios.post(
-        `http://localhost:3000/api/reservation/step3/${apiKey}/${reservationId}`,
+        `${API_URL}/api/reservation/step3/${apiKey}/${reservationId}`,
         { input_allergy: formatted },
         { withCredentials: true }
       );

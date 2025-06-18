@@ -30,7 +30,7 @@ export default function StoreInfo({
         <span className={styles.address}>{address}</span>
         <Link
           to="/MapPage"
-          state={{ mapSrc: mapLink, shopId }} // ✅ 수정됨
+          state={{ mapSrc: mapLink, shopId }} 
           style={{ textDecoration: "none" }}
         >
           <div className={styles.mapLink}>지도 보기</div>

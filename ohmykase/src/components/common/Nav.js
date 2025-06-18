@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom"; // useNavigate import
+import { useNavigate } from "react-router-dom"; 
 import styles from "../../styles/common/nav.module.css";
 
 function Nav(props) {

@@ -3,6 +3,7 @@ import axios from "axios";
 import styles from "../../styles/common/reservationInfo.module.css";
 
 const apiKey = "7VCEB37-69B4CKZ-QV2674N-BTZTWXE";
+const API_URL = process.env.REACT_APP_API_URL;
 
 function ReservationInfo({ reservationId }) {
   const [infoText, setInfoText] = useState("예약 정보를 불러오는 중입니다...");
@@ -12,7 +13,7 @@ useEffect(() => {
   if (!reservationId) return;
 
     axios
-      .get(`http://localhost:3000/api/reservation/info/${apiKey}/${reservationId}`)
+      .get(`${API_URL}/api/reservation/info/${apiKey}/${reservationId}`)
       .then((res) => {
         const { date, time, people_num } = res.data;
         const text = `${date} | ${time} | ${people_num}`;
