@@ -1,5 +1,16 @@
 {
   "rewrites": [
-    { "source": "/(.*)", "destination": "/" }
+    {
+      "source": "/api/:match*",
+      "destination": "http://52.78.100.102:3000/api/:match*"
+    },
+    {
+      "source": "/uploads/:match*",
+      "destination": "http://52.78.100.102:3000/user/:match*"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/"
+    }
   ]
 }
